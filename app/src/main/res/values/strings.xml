@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Travel App</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_register">Sign up</string>
+    <string name="prompt_username">Email or Phone</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="welcome">Travel Assistant</string>
+    <string name="invalid_username">Not a valid email or phone</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="button_sign_up">Sign up for free</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="created_by_team">Team HLS</string>
 </resources>
