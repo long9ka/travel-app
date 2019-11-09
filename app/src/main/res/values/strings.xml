@@ -12,4 +12,7 @@
     <string name="button_sign_up">Sign up for free</string>
     <string name="login_failed">"Login failed"</string>
     <string name="created_by_team">Team HLS</string>
+    <string name="store_name">User Info</string>
+    <string name="userId_store">userId</string>
+    <string name="token_store">token</string>
 </resources>
