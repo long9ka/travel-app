@@ -15,12 +15,21 @@
     <string name="store_name">User Info</string>
     <string name="userId_store">userId</string>
     <string name="token_store">token</string>
+    <string name="register_failed">Register Failed</string>
+    <string name="register_success">Register Successful, please Log in</string>
 
     <string name="prompt_full_name">Full name</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_phone">Phone</string>
     <string name="prompt_confirm_password">Confirm password</string>
-    <string name="prompt_adress">Adress</string>
+    <string name="prompt_address">Address</string>
     <string name="prompt_gender">Gender</string>
-    <string name="prompt_bob">Birth day</string>
+    <string name="prompt_dob">Birth day</string>
+
+    <string name="facebook_app_id">580426609369000</string>
+    <string name="fb_login_protocol_scheme">fb580426609369000</string>
+    <string name="client_secret">LeLpdJMOzmcSL5LvQrNRieK0</string>
+    <string name="client_id">987372910561-da87m8slv0shvi1bi99sdon9tmquvfhp.apps.googleusercontent.com</string>
+
+
 </resources>
