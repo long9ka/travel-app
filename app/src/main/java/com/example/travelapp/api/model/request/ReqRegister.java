@@ -1,9 +1,9 @@
-package com.example.travelapp.api.model.RequestModels;
+package com.example.travelapp.api.model.request;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Register {
+public class ReqRegister {
 
     @SerializedName("email")
     @Expose
@@ -22,18 +22,26 @@ public class Register {
     private String address;
     @SerializedName("dob")
     @Expose
-    private String dob;
+    private String birthday;
     @SerializedName("gender")
     @Expose
     private String gender;
 
-    public Register(String email, String phone, String password, String fullName, String address, String gender, String dob) {
+    public ReqRegister(
+            String email,
+            String phone,
+            String password,
+            String fullName,
+            String address,
+            String gender,
+            String birthday
+    ) {
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.fullName = fullName;
         this.address = address;
-        this.dob = dob;
+        this.birthday = birthday;
         this.gender = gender;
     }
 }

@@ -1,14 +1,17 @@
-package com.example.travelapp.api.model.RequestModels;
+package com.example.travelapp.api.model.request;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Login {
+public class ReqLogin {
     @SerializedName("emailPhone")
+    @Expose
     private String username;
     @SerializedName("password")
+    @Expose
     private String password;
 
-    public Login(String username, String password) {
+    public ReqLogin(String username, String password) {
         this.username = username;
         this.password = password;
     }

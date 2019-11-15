@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="@dimen/form_layout_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.LoginActivity">
@@ -24,8 +24,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_activity_login"
-        android:textSize="@dimen/title_size"
+        android:text="@string/welcome"
+        android:textSize="@dimen/title_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,10 +34,9 @@
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_layout_margin"
-        android:hint="@string/prompt_username"
+        android:hint="@string/prompt_login_username"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,12 +47,11 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
-        android:hint="@string/prompt_password"
-        android:layout_margin="@dimen/activity_layout_margin"
+        android:hint="@string/prompt_login_password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,13 +59,13 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/loginButton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
         android:backgroundTint="@color/colorButton"
-        android:text="@string/action_sign_in"
+        android:text="@string/button_action_sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
@@ -75,13 +73,14 @@
         app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintVertical_bias="0.09" />
 
-    <Button
-        android:id="@+id/register"
-        style="@android:style/Widget.DeviceDefault.Light.Button.Borderless.Small"
+    <TextView
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_sign_up"
-        android:textSize="10dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/button2_text_size"
+        android:paddingVertical="@dimen/form_layout_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
@@ -97,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/login_google_button"

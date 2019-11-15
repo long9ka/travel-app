@@ -5,12 +5,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static Retrofit retrofit = null;
+    private static final String retrofitUrl = "http://35.197.153.192:3000/";
+    private static Retrofit retrofit;
 
-    public static Retrofit getClient(String url) {
+    static {
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+            retrofit = new Retrofit
+                    .Builder()
+                    .baseUrl(retrofitUrl)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
-        return retrofit;
+    }
+
+    public static UserService getUserService() {
+        return retrofit.create(UserService.class);
     }
 }

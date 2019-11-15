@@ -1,7 +1,5 @@
 package com.example.travelapp.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,10 +7,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.travelapp.R;
-import com.example.travelapp.api.model.RequestModels.Register;
-import com.example.travelapp.api.model.ResponseModels.Sucess.UserRegister;
-import com.example.travelapp.api.service.ApiUtils;
+import com.example.travelapp.api.model.request.ReqRegister;
+import com.example.travelapp.api.model.response.ResRegister;
+import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 
 import org.json.JSONException;
@@ -51,12 +51,13 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         Button registerButton = findViewById(R.id.register);
 
-        userService = ApiUtils.getUserService();
+        userService = RetrofitClient.getUserService();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register(
+
+                execRegister(new ReqRegister(
                         emailEditText.getText().toString(),
                         phoneEditText.getText().toString(),
                         passwordEditText.getText().toString(),
@@ -64,19 +65,19 @@ public class RegisterActivity extends AppCompatActivity {
                         addressEditText.getText().toString(),
                         genderEditText.getText().toString(),
                         dobEditText.getText().toString()
-                );
+                ));
             }
         });
 
     }
 
-    private void register(String email, String phone, String password, String fullName, String address, String gender, String birthday) {
-        Call<UserRegister> call = userService.register(new Register(email, phone, password, fullName, address, gender, birthday));
-        call.enqueue(new Callback<UserRegister>() {
+    private void execRegister(ReqRegister reqRegister) {
+        Call<ResRegister> call = userService.register(reqRegister);
+        call.enqueue(new Callback<ResRegister>() {
             @Override
-            public void onResponse(Call<UserRegister> call, Response<UserRegister> response) {
+            public void onResponse(Call<ResRegister> call, Response<ResRegister> response) {
                 if (response.isSuccessful()) {
-                    callBackLogin();
+                    redirectRegister();
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -91,14 +92,14 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserRegister> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), R.string.register_failed, Toast.LENGTH_LONG).show();
+            public void onFailure(Call<ResRegister> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), R.string.notification_register_failed, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void callBackLogin() {
-        Toast.makeText(getApplicationContext(), R.string.register_success, Toast.LENGTH_SHORT).show();
+    private void redirectRegister() {
+        Toast.makeText(getApplicationContext(), R.string.notification_register_success, Toast.LENGTH_SHORT).show();
         finish();
     }
 }

@@ -1,12 +1,12 @@
 package com.example.travelapp.api.service;
 
-import com.example.travelapp.api.model.RequestModels.Login;
-import com.example.travelapp.api.model.RequestModels.LoginFacebook;
-import com.example.travelapp.api.model.RequestModels.Register;
-import com.example.travelapp.api.model.ResponseModels.Sucess.UserInfo;
-import com.example.travelapp.api.model.ResponseModels.Sucess.UserLogin;
-import com.example.travelapp.api.model.ResponseModels.Sucess.UserLoginFacebook;
-import com.example.travelapp.api.model.ResponseModels.Sucess.UserRegister;
+import com.example.travelapp.api.model.request.ReqFacebookLogin;
+import com.example.travelapp.api.model.request.ReqLogin;
+import com.example.travelapp.api.model.request.ReqRegister;
+import com.example.travelapp.api.model.response.ResFacebookLogin;
+import com.example.travelapp.api.model.response.ResLogin;
+import com.example.travelapp.api.model.response.ResRegister;
+import com.example.travelapp.api.model.response.ResUserInfo;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,14 +17,14 @@ import retrofit2.http.POST;
 public interface UserService {
 
     @POST("/user/login")
-    Call<UserLogin> login(@Body Login login);
-
-    @GET("/user/info")
-    Call<UserInfo> auth(@Header("Authorization") String token);
+    Call<ResLogin> login(@Body ReqLogin reqLogin);
 
     @POST("/user/register")
-    Call<UserRegister> register(@Body Register register);
+    Call<ResRegister> register(@Body ReqRegister reqRegister);
 
     @POST("/user/login/by-facebook")
-    Call<UserLoginFacebook> loginFacebook(@Body LoginFacebook loginFacebook);
+    Call<ResFacebookLogin> loginFacebook(@Body ReqFacebookLogin reqFacebookLogin);
+
+    @GET("/user/info")
+    Call<ResUserInfo> auth(@Header("Authorization") String string);
 }

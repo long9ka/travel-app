@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="activity_layout_margin">16dp</dimen>
-    <dimen name="title_size">16pt</dimen>
+    <dimen name="form_layout_margin">16dp</dimen>
+    <dimen name="title_text_size">16pt</dimen>
+    <dimen name="button2_text_size">16dp</dimen>
 </resources>

@@ -1,9 +1,9 @@
-package com.example.travelapp.api.model.ResponseModels.Sucess;
+package com.example.travelapp.api.model.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserInfo {
+public class ResUserInfo {
 
     @SerializedName("id")
     @Expose
