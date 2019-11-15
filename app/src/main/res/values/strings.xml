@@ -38,4 +38,8 @@
     <!--Google Login-->
     <string name="client_secret">LeLpdJMOzmcSL5LvQrNRieK0</string>
     <string name="client_id">987372910561-da87m8slv0shvi1bi99sdon9tmquvfhp.apps.googleusercontent.com</string>
+    <string name="title_activity_bottom">BottomActivity</string>
+    <string name="title_list_tour">List Tour</string>
+    <string name="title_create_tour">Create Tour</string>
+    <string name="title_setting">Setting</string>
 </resources>

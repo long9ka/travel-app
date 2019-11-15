@@ -38,4 +38,9 @@ public class UserStore extends AppCompatActivity {
         String json = gson.toJson(user);
         editor.putString("User", json).apply();
     }
+
+    public void removeUser() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("User").apply();
+    }
 }
