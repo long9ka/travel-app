@@ -4,6 +4,7 @@ import com.example.travelapp.api.model.request.ReqFacebookLogin;
 import com.example.travelapp.api.model.request.ReqLogin;
 import com.example.travelapp.api.model.request.ReqRegister;
 import com.example.travelapp.api.model.response.ResFacebookLogin;
+import com.example.travelapp.api.model.response.ResListTour;
 import com.example.travelapp.api.model.response.ResLogin;
 import com.example.travelapp.api.model.response.ResRegister;
 import com.example.travelapp.api.model.response.ResUserInfo;
@@ -27,4 +28,7 @@ public interface UserService {
 
     @GET("/user/info")
     Call<ResUserInfo> auth(@Header("Authorization") String string);
+
+    @GET("/tour/list")
+    Call<ResListTour> getListTour(@Header("Authorization") String string);
 }

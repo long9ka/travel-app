@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.travelapp.R;
 import com.example.travelapp.store.UserStore;
+import com.example.travelapp.ui.LoginActivity;
 import com.example.travelapp.ui.SplashActivity;
 
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class Setting extends Fragment {
             public void onClick(View v) {
                 UserStore userStore = new UserStore(root.getContext());
                 userStore.removeUser();
-                startActivity(new Intent(root.getContext(), SplashActivity.class));
+                startActivity(new Intent(root.getContext(), LoginActivity.class));
                 Objects.requireNonNull(getActivity()).finish();
             }
         });
