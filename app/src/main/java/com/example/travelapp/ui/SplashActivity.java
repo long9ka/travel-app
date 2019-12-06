@@ -23,12 +23,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // TODO: auth
         authWithAccessToken(RetrofitClient.getUserService());
     }
 
     private void authWithAccessToken(UserService userService) {
-        // load store (shared preferences)
         UserStore userStore = new UserStore(this);
 
         Call<ResUserInfo> call = userService.auth(userStore.getUser().getAccessToken());
@@ -40,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResUserInfo> call, Throwable t) {
-                Toast.makeText(getBaseContext(), R.string.notification_login_failed, Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Load failed", Toast.LENGTH_LONG).show();
             }
         });
 

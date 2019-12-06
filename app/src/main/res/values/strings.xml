@@ -1,15 +1,5 @@
 <resources>
     <string name="app_name">Travel App</string>
-    <string name="welcome">Travel Assistant</string>
-    <string name="author">Team HLS</string>
-
-    <!--Title-->
-    <string name="title_activity_register">Sign up</string>
-
-    <!--Button-->
-    <string name="button_action_sign_in">Sign in</string>
-    <string name="button_action_sign_up">Sign up</string>
-    <string name="button_sign_up">Sign up</string>
 
     <!--Notification-->
     <string name="notification_login_failed">"Login failed"</string>
@@ -31,13 +21,15 @@
     <string name="prompt_register_gender">Gender</string>
     <string name="prompt_register_birthday">Birth day</string>
 
-    <!--Facebook Login-->
+    <!--Facebook-->
     <string name="facebook_app_id">580426609369000</string>
     <string name="fb_login_protocol_scheme">fb580426609369000</string>
 
-    <!--Google Login-->
+    <!--Google-->
     <string name="client_secret">LeLpdJMOzmcSL5LvQrNRieK0</string>
     <string name="client_id">987372910561-da87m8slv0shvi1bi99sdon9tmquvfhp.apps.googleusercontent.com</string>
+
+    <!--Layout-->
     <string name="title_activity_bottom">BottomActivity</string>
     <string name="title_list_tour">List Tour</string>
     <string name="title_create_tour">Create Tour</string>

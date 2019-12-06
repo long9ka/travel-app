@@ -66,8 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         // Login
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.loginButton);
-        final TextView registerButton = findViewById(R.id.registerButton);
+        final Button loginButton = findViewById(R.id.login_button);
+        final TextView registerButton = findViewById(R.id.register_button);
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -84,9 +84,9 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
 
                 if (!Validation.isUserNameValid(username)) {
-                    usernameEditText.setError(getString(R.string.notification_invalid_username));
+                    usernameEditText.setError("Not a valid email or phone");
                 } else if (!Validation.isPasswordValid(password)) {
-                    passwordEditText.setError(getString(R.string.notification_invalid_password));
+                    passwordEditText.setError("Password must be >5 characters");
                 }
                 loginButton.setEnabled(Validation.isUserNameValid(username) && Validation.isPasswordValid(password));
             }
@@ -128,11 +128,12 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getApplicationContext(), R.string.notification_login_failed, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Facebook login failed", Toast.LENGTH_LONG).show();
             }
         });
 
         // Google login
+        /*
         String serverClientId = getString(R.string.client_id);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
@@ -151,8 +152,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+         */
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
 
     // ExecLogin
     private void execLogin(ReqLogin reqLogin) {
@@ -161,15 +173,19 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResLogin> call, Response<ResLogin> response) {
                 if (response.isSuccessful()) {
-                    redirectLogin(response.body());
+                    // Redirect login
+                    if (response.body().getEmailVerified() || response.body().getPhoneVerified()) {
+                        userStore.setUser(new User(response.body().getUserId(), response.body().getToken()));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    } else {
+                        startActivity(new Intent(getApplicationContext(), VerifyActivity.class));
+                    }
+                    finish();
                 } else {
-
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         Toast.makeText(getApplicationContext(), jsonObject.get("message").toString(), Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -177,18 +193,9 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResLogin> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), R.string.notification_login_failed, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
             }
         });
-    }
-    private void redirectLogin(ResLogin resLogin) {
-        if (true || resLogin.getEmailVerified() || resLogin.getPhoneVerified()) {
-            userStore.setUser(new User(resLogin.getUserId(), resLogin.getToken()));
-            startActivity(new Intent(this, MainActivity.class));
-        } else {
-            startActivity(new Intent(this, VerifyActivity.class));
-        }
-        finish();
     }
 
     // ExecFacebookLogin
@@ -198,14 +205,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResFacebookLogin> call, Response<ResFacebookLogin> response) {
                 if (response.isSuccessful()) {
-                    redirectFacebook(response.body());
+                    userStore.setUser(new User(response.body().getUserId().toString(), response.body().getToken()));
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         Toast.makeText(getApplicationContext(), jsonObject.get("message").toString(), Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -213,14 +220,9 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResFacebookLogin> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), R.string.notification_login_failed, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Facebook login failed", Toast.LENGTH_LONG).show();
             }
         });
-    }
-    private void redirectFacebook(ResFacebookLogin userFacebook) {
-        userStore.setUser(new User(userFacebook.getUserId().toString(), userFacebook.getToken()));
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
     }
 
     // ExecGoogleLogin
@@ -233,17 +235,6 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
         } catch (ApiException e) {
             Log.w("GoogleLogin", "signInResult:failed code=" + e.getStatusCode());
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
         }
     }
 }
