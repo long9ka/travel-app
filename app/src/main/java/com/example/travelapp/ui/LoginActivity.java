@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login_button);
         final TextView registerButton = findViewById(R.id.register_button);
+        final TextView forgotPassword = findViewById(R.id.forgot_password);
 
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -109,6 +110,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), PasswordRecovery.class));
             }
         });
 
@@ -178,7 +186,8 @@ public class LoginActivity extends AppCompatActivity {
                         userStore.setUser(new User(response.body().getUserId(), response.body().getToken()));
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     } else {
-                        startActivity(new Intent(getApplicationContext(), VerifyActivity.class));
+                        userStore.setUser(new User(response.body().getUserId(), null));
+                        startActivity(new Intent(getApplicationContext(), VerifyActivity.class).putExtra("accessToken", response.body().getToken()));
                     }
                     finish();
                 } else {

@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title">
 
@@ -55,12 +55,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Send to email"
+        android:text="Send Otp Code"
         android:backgroundTint="@color/colorButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/type"
         app:layout_constraintVertical_bias="0.08" />
+
+    <LinearLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/send_code"
+        app:layout_constraintVertical_bias="0.05">
+
+        <EditText
+            android:id="@+id/otp_code"
+            android:layout_weight="4"
+            android:hint="Code"
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/confirm_button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_marginHorizontal="16dp"
+            android:backgroundTint="@color/colorButton"
+            android:layout_weight="1"
+            android:text="Confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
