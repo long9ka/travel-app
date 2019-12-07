@@ -2,6 +2,7 @@ package com.example.travelapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,8 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResUserInfo> call, Throwable t) {
-                Toast.makeText(getBaseContext(), "Load failed", Toast.LENGTH_LONG).show();
+                Log.i("ahihi", t.getMessage());
+                Toast.makeText(getApplicationContext(), "Load failed", Toast.LENGTH_LONG).show();
             }
         });
 
