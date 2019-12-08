@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResUserInfo> call, Throwable t) {
-                Log.i("ahihi", t.getMessage());
+                Log.i("travel", t.getMessage());
                 Toast.makeText(getApplicationContext(), "Load failed", Toast.LENGTH_LONG).show();
             }
         });
