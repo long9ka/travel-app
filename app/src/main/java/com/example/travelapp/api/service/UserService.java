@@ -1,10 +1,12 @@
 package com.example.travelapp.api.service;
 
+import com.example.travelapp.api.model.request.ReqCreateTour;
 import com.example.travelapp.api.model.request.ReqFacebookLogin;
 import com.example.travelapp.api.model.request.ReqLogin;
 import com.example.travelapp.api.model.request.ReqPasswordRecovery;
 import com.example.travelapp.api.model.request.ReqRegister;
 import com.example.travelapp.api.model.request.ReqVerifyOtpRecovery;
+import com.example.travelapp.api.model.response.ResCreateTour;
 import com.example.travelapp.api.model.response.ResFacebookLogin;
 import com.example.travelapp.api.model.response.ResListTour;
 import com.example.travelapp.api.model.response.ResLogin;
@@ -50,4 +52,7 @@ public interface UserService {
 
     @POST("/user/verify-otp-recovery")
     Call<ResVerifyOtpRecovery> verifyOtpRecovery(@Body ReqVerifyOtpRecovery reqVerifyOtpRecovery);
+
+    @POST("/tour/create")
+    Call<ResCreateTour> createTour(@Header("Authorization") String string, @Body ReqCreateTour reqCreateTour);
 }
