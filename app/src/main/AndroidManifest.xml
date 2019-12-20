@@ -4,7 +4,9 @@
     package="com.example.travelapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -41,7 +43,7 @@
             android:parentActivityName=".ui.LoginActivity" />
         <activity android:name=".ui.VerifyActivity" />
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".MapsActivity" android:parentActivityName=".ui.MainActivity" />
+        <activity android:name=".ui.MapsActivity" android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

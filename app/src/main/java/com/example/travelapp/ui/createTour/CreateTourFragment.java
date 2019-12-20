@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.travelapp.MapsActivity;
+import com.example.travelapp.ui.MapsActivity;
 import com.example.travelapp.R;
 import com.example.travelapp.api.model.request.ReqCreateTour;
 import com.example.travelapp.api.model.response.ResCreateTour;
@@ -31,9 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -48,6 +46,11 @@ public class CreateTourFragment extends Fragment implements DatePickerDialog.OnD
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_create_tour, container, false);
+
+        // test
+        Intent intent = new Intent(root.getContext(), MapsActivity.class);
+        intent.putExtra("id", "4483");
+        startActivity(intent);
 
         final EditText tourNameEditText = root.findViewById(R.id.tour_name);
         final EditText minCostEditText = root.findViewById(R.id.min_cost);
@@ -119,7 +122,9 @@ public class CreateTourFragment extends Fragment implements DatePickerDialog.OnD
                     @Override
                     public void onResponse(Call<ResCreateTour> call, Response<ResCreateTour> response) {
                         if (response.isSuccessful()) {
-                            startActivity(new Intent(root.getContext(), MapsActivity.class));
+                            Intent intent = new Intent(root.getContext(), MapsActivity.class);
+                            intent.putExtra("id", response.body().getId());
+                            startActivity(intent);
                         } else {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.errorBody().string());
