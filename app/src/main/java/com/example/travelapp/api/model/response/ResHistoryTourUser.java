@@ -1,5 +1,6 @@
-package com.example.travelapp.api.model.request;
+package com.example.travelapp.api.model.response;
 
+import com.example.travelapp.api.model.request.Tour;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

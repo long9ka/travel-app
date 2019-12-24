@@ -25,7 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
-
+    
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_list_tour, container, false);
         final ListView listView = root.findViewById(R.id.list_item);
@@ -43,6 +43,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), jsonObject.get("message").toString(), Toast.LENGTH_LONG).show();
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
+                        
                     }
                 }
             }

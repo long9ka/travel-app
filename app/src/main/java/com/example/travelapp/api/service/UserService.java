@@ -8,7 +8,7 @@ import com.example.travelapp.api.model.request.ReqRegister;
 import com.example.travelapp.api.model.request.ReqSetStopPoints;
 import com.example.travelapp.api.model.request.ReqSuggestStopPoint;
 import com.example.travelapp.api.model.request.ReqVerifyOtpRecovery;
-import com.example.travelapp.api.model.request.ResHistoryTourUser;
+import com.example.travelapp.api.model.response.ResHistoryTourUser;
 import com.example.travelapp.api.model.response.ResCreateTour;
 import com.example.travelapp.api.model.response.ResFacebookLogin;
 import com.example.travelapp.api.model.response.ResListTour;
