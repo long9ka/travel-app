@@ -6,6 +6,7 @@ import com.example.travelapp.api.model.request.ReqLogin;
 import com.example.travelapp.api.model.request.ReqPasswordRecovery;
 import com.example.travelapp.api.model.request.ReqRegister;
 import com.example.travelapp.api.model.request.ReqSetStopPoints;
+import com.example.travelapp.api.model.request.ReqSuggestStopPoint;
 import com.example.travelapp.api.model.request.ReqVerifyOtpRecovery;
 import com.example.travelapp.api.model.response.ResCreateTour;
 import com.example.travelapp.api.model.response.ResFacebookLogin;
@@ -15,6 +16,7 @@ import com.example.travelapp.api.model.response.ResPasswordRecovery;
 import com.example.travelapp.api.model.response.ResRegister;
 import com.example.travelapp.api.model.response.ResSendVerifyCode;
 import com.example.travelapp.api.model.response.ResSetStopPoints;
+import com.example.travelapp.api.model.response.ResSuggestStopPoint;
 import com.example.travelapp.api.model.response.ResUserInfo;
 import com.example.travelapp.api.model.response.ResVerifyCode;
 import com.example.travelapp.api.model.response.ResVerifyOtpRecovery;
@@ -60,4 +62,7 @@ public interface UserService {
 
     @POST("/tour/set-stop-points")
     Call<ResSetStopPoints> setStopPoints(@Header("Authorization") String string, @Body ReqSetStopPoints reqSetStopPoints);
+
+    @POST("/tour/suggested-destination-list")
+    Call<ResSuggestStopPoint> getSuggestedDestinations(@Header("Authorization")String string, @Body ReqSuggestStopPoint reqSuggestStopPoint);
 }

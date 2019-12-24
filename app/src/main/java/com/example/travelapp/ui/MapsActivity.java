@@ -22,14 +22,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.travelapp.R;
+import com.example.travelapp.api.model.request.CoordStopPoint;
 import com.example.travelapp.api.model.request.ReqSetStopPoints;
+import com.example.travelapp.api.model.request.ReqSuggestStopPoint;
 import com.example.travelapp.api.model.request.StopPoint;
 import com.example.travelapp.api.model.response.ResSetStopPoints;
+import com.example.travelapp.api.model.response.ResStopPoint;
+import com.example.travelapp.api.model.response.ResSuggestStopPoint;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
@@ -41,6 +47,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -63,7 +70,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private LatLng myLocation;
     private FusedLocationProviderClient fusedLocationClient;
-
+    private List<ResStopPoint> stopPointList;
     private List<StopPoint> stopPoints;
     private String startDate, endDate;
     private int clickDatePicker;
@@ -156,9 +163,61 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (marker.getPosition().latitude == myLocation.latitude && marker.getPosition().longitude == myLocation.longitude) {
+                    // nothing
+                } else
+                for (int i = 0; i < stopPointList.size(); i++) {
+                    if (stopPointList.get(i).getId().equals(Integer.valueOf(marker.getSnippet()))) {
+                        String minCost = stopPointList.get(i).getMinCost();
+                        String maxCost = stopPointList.get(i).getMaxCost();
+                        String service;
+                        switch (stopPointList.get(i).getServiceTypeId()) {
+                            case 1:
+                                service = "Restaurant";
+                                break;
+                            case 2:
+                                service = "Hotel";
+                                break;
+                            case 3:
+                                service = "Station";
+                                break;
+                                default:
+                                    service = "Other";
+                                    break;
+                        }
+                        final int finalI = i;
+                        new AlertDialog.Builder(MapsActivity.this)
+                                .setTitle("Add stop point")
+                                .setMessage("$: " + minCost + " - " + maxCost + "\nService: " + service)
+                                .setNegativeButton("Cancel", null)
+                                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        stopPoints.add(0, new StopPoint(
+                                                stopPointList.get(finalI).getName(),
+                                                stopPointList.get(finalI).getLat(),
+                                                stopPointList.get(finalI).getLong(),
+                                                "15532956000",
+                                                "15532956000",
+                                                String.valueOf(stopPointList.get(finalI).getServiceTypeId()),
+                                                String.valueOf(stopPointList.get(finalI).getMinCost()),
+                                                String.valueOf(stopPointList.get(finalI).getMaxCost())
+                                        ));
+                                    }
+                                })
+                                .show();
+                    }
+                }
+                return false;
+            }
+        });
         fusedLocationClient
                 .getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -166,6 +225,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
+                            UserStore userStore = new UserStore(getApplicationContext());
+                            UserService userService = RetrofitClient.getUserService();
+                            Call<ResSuggestStopPoint> call = userService.getSuggestedDestinations(
+                                    userStore.getUser().getAccessToken(),
+                                    new ReqSuggestStopPoint(true, new CoordStopPoint(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude())))
+                            );
+                            call.enqueue(new Callback<ResSuggestStopPoint>() {
+                                @Override
+                                public void onResponse(Call<ResSuggestStopPoint> call, Response<ResSuggestStopPoint> response) {
+                                    if (response.isSuccessful()) {
+                                        stopPointList = new ArrayList<>(response.body().getStopPoints());
+                                        for(int i = 0; i < response.body().getStopPoints().size(); i++) {
+                                            String lat = response.body().getStopPoints().get(i).getLat();
+                                            String _long = response.body().getStopPoints().get(i).getLong();
+                                            String name = response.body().getStopPoints().get(i).getName();
+                                            mMap.addMarker(new MarkerOptions()
+                                                    .position(new LatLng(Double.valueOf(lat), Double.valueOf(_long))).title(
+                                                            name
+                                                    )).setSnippet(String.valueOf(response.body().getStopPoints().get(i).getId()));
+                                        }
+                                    } else {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                            Toast.makeText(getApplicationContext(), jsonObject.get("message").toString(), Toast.LENGTH_LONG).show();
+                                        } catch (JSONException | IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResSuggestStopPoint> call, Throwable t) {
+                                    Toast.makeText(getApplicationContext(), "get suggested stop points failed", Toast.LENGTH_LONG).show();
+                                }
+                            });
                             myLocation = new LatLng(location.getLatitude(), location.getLongitude());
                             mMap.addMarker(new MarkerOptions().position(myLocation).title("My location"));
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
@@ -176,7 +270,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(final LatLng latLng) {
-                View view = getLayoutInflater().inflate(R.layout.popup_stop_points, null);
+                final View view = getLayoutInflater().inflate(R.layout.popup_stop_points, null);
 
                 final EditText nameStopPoint = view.findViewById(R.id.stop_point_name);
                 final EditText minCost = view.findViewById(R.id.min_cost);
@@ -209,7 +303,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 spinner
 
                  */
-                final EditText serviceType = view.findViewById(R.id.service_type);
+                final RadioGroup radioGroup = view.findViewById(R.id.service_type);
 
                 new AlertDialog.Builder(MapsActivity.this)
                         .setView(view)
@@ -218,38 +312,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
-                                int service = R.drawable.date;
-                                if (serviceType.getText().toString().equals("1")) {
-                                    // restaurant
-                                    service = R.drawable.adults;
+                                int service = 4;
+                                final RadioButton radioButton = view.findViewById(radioGroup.getCheckedRadioButtonId());
+                                switch (radioButton.getId()) {
+                                    case R.id.restaurant:
+                                        service = 1;
+                                        break;
+                                    case R.id.hotel:
+                                        service = 2;
+                                        break;
+                                    case R.id.station:
+                                        service = 3;
+                                        break;
+                                        default:
+                                            break;
                                 }
-                                if (serviceType.getText().toString().equals("2")) {
-                                    // hotel
-                                    service = R.drawable.childs;
-                                }
-                                if (serviceType.getText().toString().equals("3")) {
-                                    // station
-                                    service = R.drawable.place1;
-                                }
-                                if (serviceType.getText().toString().equals("4")) {
-                                    // other
-                                    service = R.drawable.price;
-                                }
-
-
-                                mMap.addMarker(new MarkerOptions().position(latLng)
-                                        .title("My location")
-                                        .icon(BitmapDescriptorFactory.fromResource(service))
-                                )
-                                        .setTitle(nameStopPoint.getText().toString());
                                 stopPoints.add(0, new StopPoint(
                                         nameStopPoint.getText().toString(),
                                         String.valueOf(latLng.latitude),
                                         String.valueOf(latLng.longitude),
                                         startDate,
                                         endDate,
-                                        serviceType.getText().toString(),
+                                        String.valueOf(service),
                                         minCost.getText().toString(),
                                         maxCost.getText().toString()
                                 ));
