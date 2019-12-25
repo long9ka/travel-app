@@ -14,7 +14,9 @@
         android:theme="@style/ActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <!--Tour info-->
         <activity android:name=".ui.history.TourInfor" />
+        <!--Update tour-->
         <activity
             android:name=".UpdateTourActivity"
             android:label="Update Tour"
