@@ -8,6 +8,7 @@ import com.example.travelapp.api.model.request.ReqRegister;
 import com.example.travelapp.api.model.request.ReqSetStopPoints;
 import com.example.travelapp.api.model.request.ReqSuggestStopPoint;
 import com.example.travelapp.api.model.request.ReqVerifyOtpRecovery;
+import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.model.response.ResHistoryTourUser;
 import com.example.travelapp.api.model.response.ResCreateTour;
 import com.example.travelapp.api.model.response.ResFacebookLogin;
@@ -69,4 +70,7 @@ public interface UserService {
 
     @GET("/tour/history-user")
     Call<ResHistoryTourUser> getHistoryTourUser(@Header("Authorization")String string, @Query("pageIndex")String number, @Query("pageSize") String size);
+    
+    @GET("/tour/info")
+    Call<ResHistoryStopPoints> getHitoryStopPoint(@Header("Authorization")String string, @Query("tourId")String tourId);
 }

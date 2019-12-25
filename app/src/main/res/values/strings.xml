@@ -1,26 +1,5 @@
 <resources>
     <string name="app_name">Travel App</string>
-
-    <!--Notification-->
-    <string name="notification_login_failed">"Login failed"</string>
-    <string name="notification_register_failed">Register Failed</string>
-    <string name="notification_invalid_username">Not a valid email or phone</string>
-    <string name="notification_invalid_password">Password must be >5 characters</string>
-    <string name="notification_register_success">Register Successful, please Log in</string>
-
-    <!--Login-->
-    <string name="prompt_login_username">Email or Phone</string>
-    <string name="prompt_login_password">Password</string>
-
-    <!--Register-->
-    <string name="prompt_register_full_name">Full name</string>
-    <string name="prompt_register_email">Email</string>
-    <string name="prompt_register_phone">Phone</string>
-    <string name="prompt_register_password">Password</string>
-    <string name="prompt_register_address">Address</string>
-    <string name="prompt_register_gender">Gender</string>
-    <string name="prompt_register_birthday">Birth day</string>
-
     <!--Facebook-->
     <string name="facebook_app_id">580426609369000</string>
     <string name="fb_login_protocol_scheme">fb580426609369000</string>
@@ -28,6 +7,7 @@
     <!--Google-->
     <string name="client_secret">LeLpdJMOzmcSL5LvQrNRieK0</string>
     <string name="client_id">987372910561-da87m8slv0shvi1bi99sdon9tmquvfhp.apps.googleusercontent.com</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAVaKmIwVg3sKANvg_j1GrACDxsasMjB9s</string>
 
     <!--Layout-->
     <string name="title_activity_bottom">BottomActivity</string>
@@ -35,11 +15,4 @@
     <string name="title_create_tour">Tour</string>
     <string name="title_setting">Setting</string>
     <string name="title_activity_maps">Map</string>
-    
-    <string-array name="type">
-        <item>Restaurant</item>
-        <item>Hotel</item>
-        <item>Rest station</item>
-        <item>Other</item>
-    </string-array>
 </resources>
