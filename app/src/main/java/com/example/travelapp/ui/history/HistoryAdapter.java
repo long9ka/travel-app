@@ -59,7 +59,7 @@ public class HistoryAdapter extends ArrayAdapter<Tour> {
         viewHolder.cost.setText("Costs: " + objects.get(position).getMinCost() + " - " + objects.get(position).getMaxCost());
         viewHolder.people.setText("Adults: " + objects.get(position).getAdults() + " Child: " + objects.get(position).getChilds());
         viewHolder.isHost.setText("Is host: " + objects.get(position).getIsHost());
-        viewHolder.isHost.setText("Is kicked: " + objects.get(position).getIsKicked());
+        viewHolder.isKicked.setText("Is kicked: " + objects.get(position).getIsKicked());
 
         return convertView;
     }
