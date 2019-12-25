@@ -2,4 +2,5 @@
 <resources>
     <color name="colorTheme">#36C9FF</color>
     <color name="colorButton">#E0F7FA</color>
+    <color name="text">#092E88</color>
 </resources>
