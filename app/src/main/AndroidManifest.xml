@@ -14,9 +14,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/ActionBar"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".ui.history.TourInfor"></activity>
         <activity
             android:name=".ui.PasswordRecovery"
             android:parentActivityName=".ui.LoginActivity" />
@@ -43,7 +44,9 @@
             android:parentActivityName=".ui.LoginActivity" />
         <activity android:name=".ui.VerifyActivity" />
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.MapsActivity" android:parentActivityName=".ui.MainActivity" />
+        <activity
+            android:name=".ui.MapsActivity"
+            android:parentActivityName=".ui.MainActivity" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
