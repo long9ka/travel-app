@@ -50,6 +50,7 @@
         <activity android:name=".ui.LoginActivity" /> <!-- Splash -->
         <activity
             android:name=".ui.SplashActivity"
+
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,6 +64,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
