@@ -25,27 +25,15 @@ public class CustomAdapter extends ArrayAdapter<ResTour> {
     private int resource;
     private List<ResTour> objects;
 
-    public static String getDate(long milliSeconds, String dateFormat) {
-
-        // Create a DateFormatter object for displaying date in specified format.
-
-        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-
-
-        // Create a calendar object that will convert the date and time value in milliseconds to date.
-
+    private static String getDate(long milliSeconds) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Calendar calendar = Calendar.getInstance();
-
         calendar.setTimeInMillis(milliSeconds);
-
         return formatter.format(calendar.getTime());
-
     }
 
-
-    public CustomAdapter(@NonNull Context context, int resource, @NonNull List<ResTour> objects) {
+    CustomAdapter(@NonNull Context context, int resource, @NonNull List<ResTour> objects) {
         super(context, resource, objects);
-
         this.context = context;
         this.resource = resource;
         this.objects = objects;
@@ -74,22 +62,21 @@ public class CustomAdapter extends ArrayAdapter<ResTour> {
         viewHolder.adults = convertView.findViewById(R.id.adults);
         viewHolder.childs = convertView.findViewById(R.id.childs);
         viewHolder.costs = convertView.findViewById(R.id.costs);
-
-//        convert to dd/mm/yyyy
+        
+        // convert date
         String dayStart = objects.get(position).getStartDate();
         String con_dayStart = null, con_dayEnd = null;
         if (dayStart != null) {
-            Long time_start;
+            long time_start;
             time_start = Long.parseLong(dayStart);
-            con_dayStart = getDate(time_start, "dd/MM/yyyy");
+            con_dayStart = getDate(time_start);
         }
         String dayEnd = objects.get(position).getEndDate();
         if (dayEnd != null) {
-            Long time_end;
+            long time_end;
             time_end = Long.parseLong(dayEnd);
-            con_dayEnd = getDate(time_end, "dd/MM/yyyy");
+            con_dayEnd = getDate(time_end);
         }
-        //String avartar=objects.get(position).getAvatar().toString();
         viewHolder.name.setText(objects.get(position).getName());
         viewHolder.time.setText(con_dayStart + " - " + con_dayEnd);
         viewHolder.adults.setText("Adults: " + objects.get(position).getAdults());

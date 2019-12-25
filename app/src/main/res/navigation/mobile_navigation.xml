@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_create_tour" />
 
     <fragment
+        android:name="com.example.travelapp.ui.history.HistoryFragment"
+        android:id="@+id/navigation_history"
+        android:label="History"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.travelapp.ui.setting.Setting"
         android:label="@string/title_setting"

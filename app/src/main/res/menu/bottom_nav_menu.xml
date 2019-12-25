@@ -12,6 +12,11 @@
         android:title="@string/title_create_tour" />
 
     <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="History" />
+
+    <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_settings"
         android:title="@string/title_setting" />

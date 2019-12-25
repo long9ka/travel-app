@@ -32,7 +32,7 @@
     <!--Layout-->
     <string name="title_activity_bottom">BottomActivity</string>
     <string name="title_list_tour">List Tour</string>
-    <string name="title_create_tour">Create Tour</string>
+    <string name="title_create_tour">Tour</string>
     <string name="title_setting">Setting</string>
     <string name="title_activity_maps">Map</string>
     
