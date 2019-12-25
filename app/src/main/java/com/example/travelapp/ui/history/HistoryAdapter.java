@@ -92,7 +92,9 @@ public class HistoryAdapter extends ArrayAdapter<Tour> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, UpdateTourActivity.class));
+                Intent intent = new Intent(context, UpdateTourActivity.class);
+                intent.putExtra("tourId", String.valueOf(objects.get(position).getId()));
+                context.startActivity(intent);
             }
         });
         

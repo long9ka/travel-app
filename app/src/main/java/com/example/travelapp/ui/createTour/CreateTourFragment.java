@@ -42,7 +42,7 @@ public class CreateTourFragment extends Fragment implements DatePickerDialog.OnD
 
     private TextView startDateTextView, endDateTextView;
     private String startDate, endDate, adults = "10", child = "10", isPrivate = "false";
-    private int clickDatePicker;
+        private int clickDatePicker;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_create_tour, container, false);
