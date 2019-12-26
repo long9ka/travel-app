@@ -18,11 +18,10 @@
             android:layout_height="match_parent"
             android:layout_marginRight="50dp"
             android:layout_weight="9"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="Tour's Information"
             android:textColor="#000"
-            android:textSize="35dp"
-
+            android:textSize="30dp"
             ></TextView>
 
         <ImageButton
@@ -41,7 +40,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="3"
-        android:background="@drawable/avatar_tour"></ImageView>
+        android:background="@drawable/background_01"></ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
