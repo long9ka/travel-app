@@ -45,7 +45,7 @@ public interface UserService {
     Call<ResUserInfo> auth(@Header("Authorization") String string);
 
     @GET("/tour/list")
-    Call<ResListTour> getListTour(@Header("Authorization") String string);
+    Call<ResListTour> getListTour(@Header("Authorization") String string, @Query("rowPerPage")String row, @Query("pageNum")String number);
 
     @GET("/user/send-active")
     Call<ResSendVerifyCode> sendVerifyCode(@Query("userId") String userId, @Query("type") String type);

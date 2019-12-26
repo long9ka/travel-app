@@ -23,7 +23,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         authWithAccessToken(RetrofitClient.getUserService());
     }
 
@@ -50,5 +49,6 @@ public class SplashActivity extends AppCompatActivity {
         Intent intent = new Intent(this, (statusCode) ? MainActivity.class : LoginActivity.class);
         startActivity(intent);
         finish();
+        overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim);
     }
 }

@@ -2,6 +2,7 @@ package com.example.travelapp.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +17,17 @@ import com.example.travelapp.R;
 import com.example.travelapp.api.model.response.ResTour;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 public class CustomAdapter extends ArrayAdapter<ResTour> {
 
     private Context context;
     private int resource;
     private List<ResTour> objects;
+    private List<Integer> list;
 
     private static String getDate(long milliSeconds) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -37,15 +41,20 @@ public class CustomAdapter extends ArrayAdapter<ResTour> {
         this.context = context;
         this.resource = resource;
         this.objects = objects;
+
+        list = new ArrayList<>();
+        list.add(R.drawable.background_01);
+        list.add(R.drawable.background_02);
+        list.add(R.drawable.background_03);
+        list.add(R.drawable.background_04);
     }
 
     private class ViewHolder {
         ImageView imageView;
-        TextView name;
-        TextView time;
-        TextView adults;
-        TextView childs;
-        TextView costs;
+        TextView tourName;
+        TextView date;
+        TextView people;
+        TextView cost;
     }
 
     @SuppressLint({"ViewHolder", "SetTextI18n"})
@@ -53,35 +62,33 @@ public class CustomAdapter extends ArrayAdapter<ResTour> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(resource, parent, false);
-
         // handle ViewHolder
         ViewHolder viewHolder = new ViewHolder();
-        viewHolder.imageView = convertView.findViewById(R.id.image);
-        viewHolder.name = convertView.findViewById(R.id.full_name);
-        viewHolder.time = convertView.findViewById(R.id.time);
-        viewHolder.adults = convertView.findViewById(R.id.adults);
-        viewHolder.childs = convertView.findViewById(R.id.childs);
-        viewHolder.costs = convertView.findViewById(R.id.costs);
+        viewHolder.imageView = convertView.findViewById(R.id.background);
+        viewHolder.tourName = convertView.findViewById(R.id.tour_name);
+        viewHolder.date = convertView.findViewById(R.id.date);
+        viewHolder.cost = convertView.findViewById(R.id.cost);
+        viewHolder.people = convertView.findViewById(R.id.people);
+        ResTour tour = objects.get(position);
         
-        // convert date
-        String dayStart = objects.get(position).getStartDate();
-        String con_dayStart = null, con_dayEnd = null;
-        if (dayStart != null) {
-            long time_start;
-            time_start = Long.parseLong(dayStart);
-            con_dayStart = getDate(time_start);
+        if (tour.getAvatar() == null) {
+            Random rand = new Random();
+            viewHolder.imageView.setBackgroundResource(list.get(rand.nextInt(list.size())));
+        } else {
+            //viewHolder.imageView.setBackgroundResource((Integer) tour.getAvatar());
         }
-        String dayEnd = objects.get(position).getEndDate();
-        if (dayEnd != null) {
-            long time_end;
-            time_end = Long.parseLong(dayEnd);
-            con_dayEnd = getDate(time_end);
+        
+        if (!tour.getName().equals("")) {
+            viewHolder.tourName.setText(tour.getName() + " ");
         }
-        viewHolder.name.setText(objects.get(position).getName());
-        viewHolder.time.setText(con_dayStart + " - " + con_dayEnd);
-        viewHolder.adults.setText("Adults: " + objects.get(position).getAdults());
-        viewHolder.childs.setText("Child: " + objects.get(position).getChilds());
-        viewHolder.costs.setText(objects.get(position).getMinCost() + " - " + objects.get(position).getMaxCost());
+        if (tour.getStartDate() != null && tour.getEndDate() != null) {
+            String startDate = getDate(Long.parseLong(tour.getStartDate()));
+            String endDate = getDate(Long.parseLong(tour.getEndDate()));
+            viewHolder.date.setText(startDate + " - " + endDate + " ");
+        }
+        viewHolder.people.setText("Adults: " + tour.getAdults() + ", Child: " + tour.getChilds() + " ");
+        viewHolder.cost.setText(tour.getMinCost() + "$ - " + tour.getMaxCost() + "$");
+        
         return convertView;
     }
 }
