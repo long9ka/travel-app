@@ -7,6 +7,7 @@ import com.example.travelapp.api.model.request.ReqPasswordRecovery;
 import com.example.travelapp.api.model.request.ReqRegister;
 import com.example.travelapp.api.model.request.ReqSetStopPoints;
 import com.example.travelapp.api.model.request.ReqSuggestStopPoint;
+import com.example.travelapp.api.model.request.ReqUpdatePassword;
 import com.example.travelapp.api.model.request.ReqVerifyOtpRecovery;
 import com.example.travelapp.api.model.request.ReqEditUserInfo;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
@@ -77,4 +78,7 @@ public interface UserService {
     
     @POST("/user/edit-info")
     Call<ResSetStopPoints> updateUserInfo(@Header("Authorization")String string, @Body ReqEditUserInfo reqEditUserInfo);
+    
+    @POST("/user/update-password")
+    Call<ResSetStopPoints> changePassword(@Header("Authorization")String string, @Body ReqUpdatePassword reqUpdatePassword);
 }

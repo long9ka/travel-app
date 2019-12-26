@@ -78,6 +78,7 @@
             android:layout_height="wrap_content"
             tools:ignore="HardcodedText" />
         <Button
+            android:id="@+id/change_password"
             style="@style/Widget.AppCompat.ButtonBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
