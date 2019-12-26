@@ -2,7 +2,7 @@
     <style name="ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorTheme</item>
         <item name="colorPrimaryDark">@color/colorTheme</item>
-        <item name="colorAccent">@color/colorButton</item>
+        <item name="colorAccent">#8000ff</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 </resources>

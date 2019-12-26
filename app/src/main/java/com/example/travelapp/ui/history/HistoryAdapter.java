@@ -51,7 +51,7 @@ public class HistoryAdapter extends ArrayAdapter<Tour> {
         TextView isKicked;
     }
     
-    public HistoryAdapter(@NonNull Context context, int resource, @NonNull List<Tour> objects) {
+    HistoryAdapter(@NonNull Context context, int resource, @NonNull List<Tour> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
