@@ -7,22 +7,21 @@
     android:layout_marginBottom="2dp">
 
 
-<!--    <TextView-->
-<!--        android:id="@+id/name"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:adjustViewBounds="true"-->
-<!--        android:background="@drawable/avatar_tour"-->
-<!--        android:fontFamily="@font/ruthie"-->
-<!--        android:gravity="center"-->
-<!--        android:maxWidth="42dp"-->
-<!--        android:maxHeight="42dp"-->
-<!--        android:scaleType="fitCenter"-->
-<!--        android:text="Son"-->
-<!--        android:textColor="#ffffff"-->
-<!--        android:textSize="30pt" />-->
-    <!--Tai cai hinh nay ne t exit nha ok-->
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:background="@drawable/avatar_tour"
+        android:fontFamily="@font/ruthie"
+        android:gravity="center"
+        android:maxWidth="42dp"
+        android:maxHeight="42dp"
+        android:scaleType="fitCenter"
+        android:text="Son"
+        android:textColor="#ffffff"
+        android:textSize="30pt" />
     
     <LinearLayout
         android:layout_width="match_parent"
