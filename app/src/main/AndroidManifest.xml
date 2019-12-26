@@ -61,7 +61,7 @@
             tools:ignore="DuplicateActivity" /> <!-- Splash -->
         <activity
             android:name=".ui.SplashActivity"
-            android:theme="@style/NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
