@@ -55,18 +55,5 @@
             android:layout_height="wrap_content" />
         
     </LinearLayout>
-    
-    <Button
-        android:id="@+id/update_tour"
-        android:backgroundTint="@color/colorButton"
-        android:text="update tour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    
-    <Button
-        android:id="@+id/update_stop_points"
-        android:text="Update stop points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

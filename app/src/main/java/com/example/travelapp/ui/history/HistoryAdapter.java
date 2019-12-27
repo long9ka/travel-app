@@ -73,57 +73,6 @@ public class HistoryAdapter extends ArrayAdapter<Tour> {
         viewHolder.isHost = convertView.findViewById(R.id.is_host);
         viewHolder.isKicked = convertView.findViewById(R.id.is_kicked);
         
-        final Button button = convertView.findViewById(R.id.update_tour);
-        final UserStore userStore = new UserStore(convertView.getContext());
-        final UserService userService = RetrofitClient.getUserService();
-        final String token = userStore.getUser().getAccessToken();
-        final Button btnShowStopPoints = convertView.findViewById(R.id.update_stop_points);
-
-        // get user info [position]
-        Call<ResHistoryStopPoints> call = userService.getHitoryStopPoint(token, String.valueOf(objects.get(position).getId()));
-
-        btnShowStopPoints.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("ahihi", String.valueOf(objects.get(position).getId()));
-            }
-        });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, UpdateTourActivity.class);
-                intent.putExtra("tourId", String.valueOf(objects.get(position).getId()));
-                context.startActivity(intent);
-            }
-        });
-        
-        call.enqueue(new Callback<ResHistoryStopPoints>() {
-            @Override
-            public void onResponse(Call<ResHistoryStopPoints> call, final Response<ResHistoryStopPoints> response) {
-                if (response.isSuccessful()) {
-                    int numberStopPoints = response.body().getStopPoints().size();
-                    if (numberStopPoints > 0) {
-                        btnShowStopPoints.setText("Update stop points (" + numberStopPoints + ")");
-                    } else {
-                        btnShowStopPoints.setEnabled(false);
-                    }
-                } else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getApplicationContext(), jsonObject.get("message").toString(), Toast.LENGTH_LONG).show();
-                    } catch (JSONException | IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResHistoryStopPoints> call, Throwable t) {
-                Toast.makeText(getContext(), "Get History Stop Points: Failure", Toast.LENGTH_LONG).show();
-            }
-        });
-        
         // set view
         viewHolder.tourName.setText("Tour name: " + objects.get(position).getName());
         viewHolder.date.setText("Date: " + objects.get(position).getStartDate() + " - " + objects.get(position).getEndDate());

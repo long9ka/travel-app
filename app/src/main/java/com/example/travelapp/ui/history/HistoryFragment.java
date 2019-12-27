@@ -34,6 +34,8 @@ import retrofit2.Response;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class HistoryFragment extends Fragment {
+    
+    private HistoryAdapter adapter;
 
     @Nullable
     @Override
@@ -48,16 +50,12 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onResponse(Call<ResHistoryTourUser> call, final Response<ResHistoryTourUser> response) {
                 if (response.isSuccessful()) {
-                    final HistoryAdapter adapter = new HistoryAdapter(root.getContext(), R.layout.history_adapter, response.body().getTours());
+                    adapter = new HistoryAdapter(root.getContext(), R.layout.history_adapter, response.body().getTours());
                     listView.setAdapter(adapter);
-
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent;
-                            int internID=response.body().getTours().get(position).getId();
-                            intent = new Intent(root.getContext(),TourInfor.class);
-                            startActivity(intent.putExtra("internId",internID));
+                            startActivity(new Intent(root.getContext(), TourInfor.class));
                         }
                     });
                 } else {
