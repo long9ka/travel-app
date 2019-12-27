@@ -23,7 +23,8 @@
             android:parentActivityName=".ui.MainActivity">
         </activity>
         <activity android:name=".ui.rating.rating_stop_point" /> <!-- Tour info -->
-        <activity android:name=".ui.history.TourInfor" /> <!-- Update tour -->
+        <activity android:name=".ui.history.TourInfor"
+            android:parentActivityName=".ui.history.TourInfor"/> <!-- Update tour -->
         <activity
             android:name=".UpdateTourActivity"
             android:label="Update Tour" /> <!-- Stop points -->

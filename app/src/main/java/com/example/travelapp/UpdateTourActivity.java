@@ -54,7 +54,6 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_tour);
         String tourId = getIntent().getStringExtra("tourId");
-        
         UserStore userStore = new UserStore(this);
         UserService userService = RetrofitClient.getUserService();
         
