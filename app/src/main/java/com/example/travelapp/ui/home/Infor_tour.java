@@ -68,7 +68,6 @@ public class Infor_tour extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             int star=rate.getNumStars();
-                            String rep=review.getText();
                         }
                     });
                 } else {
