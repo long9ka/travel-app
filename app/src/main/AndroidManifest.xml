@@ -21,24 +21,24 @@
         tools:targetApi="m">
 
         <activity android:name=".ui.followTour.sound"></activity>
+
         <activity
+            android:label="Information"
             android:name=".ui.home.Infor_tour"
-            android:parentActivityName=".ui.MainActivity"></activity>
+            android:parentActivityName=".ui.MainActivity">
+        </activity>
         <activity android:name=".ui.rating.rating_stop_point" /> <!-- Tour info -->
         <activity
             android:name=".ui.history.TourInfor"
             android:parentActivityName=".ui.history.TourInfor" /> <!-- Update tour -->
         <activity
             android:name=".UpdateTourActivity"
-            android:label="Update Tour"
-            android:parentActivityName=".ui.MainActivity" /> <!-- Stop points -->
+            android:label="Update Tour" /> <!-- Stop points -->
         <activity
             android:name=".ui.MapsActivity"
-            android:parentActivityName=".ui.MainActivity"
-            tools:ignore="DuplicateActivity" /> <!-- Main -->
+            android:parentActivityName=".ui.MainActivity" /> <!-- Main -->
         <activity
-            android:name=".ui.MainActivity"
-            tools:ignore="DuplicateActivity" /> <!-- Facebook Login -->
+            android:name=".ui.MainActivity" /> <!-- Facebook Login -->
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
