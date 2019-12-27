@@ -8,10 +8,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,12 +34,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Handler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
+    private CustomAdapter customAdapter;
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -64,7 +72,7 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful()) {
                     @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("totalTour", response.body().getTotal()).apply();
-                    CustomAdapter customAdapter = new CustomAdapter(root.getContext(), R.layout.list_tour, response.body().getTours());
+                    customAdapter = new CustomAdapter(root.getContext(), R.layout.list_tour, response.body().getTours());
                     listView.setAdapter(customAdapter);
                 } else {
                     try {
@@ -72,7 +80,6 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), jsonObject.get("message").toString(), Toast.LENGTH_LONG).show();
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
-                        
                     }
                 }
             }
@@ -83,5 +90,24 @@ public class HomeFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.search_bar) {
+            SearchView searchView = (SearchView) item.getActionView();
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    customAdapter.getFilter().filter(s);
+                    return false;
+                }
+            });
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
