@@ -21,6 +21,7 @@ import com.example.travelapp.api.model.response.ResHistoryTourUser;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
+import com.example.travelapp.ui.home.Infor_tour;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,16 +51,17 @@ public class HistoryFragment extends Fragment {
                 if (response.isSuccessful()) {
                     final HistoryAdapter adapter = new HistoryAdapter(root.getContext(), R.layout.history_adapter, response.body().getTours());
                     listView.setAdapter(adapter);
-
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Log.d("INFO", "run into Item");
                             Intent intent;
                             int internID=response.body().getTours().get(position).getId();
-                            intent = new Intent(root.getContext(),TourInfor.class);
+                            intent = new Intent(root.getContext(), Infor_tour.class);
                             startActivity(intent.putExtra("internId",internID));
                         }
                     });
+                    Log.d("INFO: ","run into view");
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -75,7 +77,9 @@ public class HistoryFragment extends Fragment {
                 Toast.makeText(getContext(), "Get History Tour: Failure", Toast.LENGTH_LONG).show();
             }
         });
+
         return root;
     }
+
 
 }
