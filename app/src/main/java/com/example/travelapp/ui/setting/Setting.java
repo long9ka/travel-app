@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.travelapp.R;
 import com.example.travelapp.api.model.request.ReqEditUserInfo;
+import com.example.travelapp.api.model.request.ReqUpdatePassword;
 import com.example.travelapp.api.model.response.ResSetStopPoints;
 import com.example.travelapp.api.model.response.ResUserInfo;
 import com.example.travelapp.api.service.RetrofitClient;
@@ -55,7 +56,7 @@ public class Setting extends Fragment implements DatePickerDialog.OnDateSetListe
     private UserStore userStore;
     private TextView fullName, email;
     
-    void callGetUserInfo() {
+    private void callGetUserInfo() {
         final Call<ResUserInfo> call = userService.auth(userStore.getUser().getAccessToken());
         call.enqueue(new Callback<ResUserInfo>() {
             @Override
@@ -181,6 +182,55 @@ public class Setting extends Fragment implements DatePickerDialog.OnDateSetListe
                                     @Override
                                     public void onFailure(Call<ResSetStopPoints> call, Throwable t) {
                                         Toast.makeText(getApplicationContext(), "Update User Info failed", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        })
+                        .show();
+            }
+        });
+        
+        // Change password
+        Button changePassword = root.findViewById(R.id.change_password);
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                @SuppressLint("InflateParams") View view = getLayoutInflater().inflate(R.layout.popup_change_password, null);
+                final EditText currentPassword = view.findViewById(R.id.current_password);
+                final EditText newPassword = view.findViewById(R.id.new_password);
+                new AlertDialog.Builder(root.getContext())
+                        .setView(view)
+                        .setTitle("Change password")
+                        .setNegativeButton("Cancel", null)
+                        .setPositiveButton("Change", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Call<ResSetStopPoints> call = userService.changePassword(
+                                        userStore.getUser().getAccessToken(),
+                                        new ReqUpdatePassword(
+                                                userStore.getUser().getUserId(),
+                                                currentPassword.getText().toString(),
+                                                newPassword.getText().toString()
+                                        )
+                                );
+                                call.enqueue(new Callback<ResSetStopPoints>() {
+                                    @Override
+                                    public void onResponse(Call<ResSetStopPoints> call, Response<ResSetStopPoints> response) {
+                                        if (response.isSuccessful()) {
+                                            Toast.makeText(root.getContext(), "Update password successful", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                                Toast.makeText(getApplicationContext(), jsonObject.get("message").toString(), Toast.LENGTH_LONG).show();
+                                            } catch (JSONException | IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResSetStopPoints> call, Throwable t) {
+                                        Toast.makeText(root.getContext(), "Server error", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
