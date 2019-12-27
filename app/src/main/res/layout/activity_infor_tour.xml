@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:weightSum="10">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginRight="50dp"
+            android:gravity="center_vertical"
+            android:text="Tour's Information"
+            android:textColor="#000"
+            android:textSize="30dp"
+            ></TextView>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="3"
+        android:background="@drawable/background_01"></ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <TextView
+            style="@style/CardView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="Name:"
+            android:textSize="25dp"></TextView>
+
+        <EditText
+            android:id="@+id/tourinfo_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:text="tour's name"
+            android:textSize="25dp"></EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="9">
+
+        <EditText
+            android:id="@+id/tourinfo_min_cost"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="4"
+            android:hint="Min cost"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="-"
+            android:textSize="10pt" />
+
+        <EditText
+            android:id="@+id/tourinfo_max_cost"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="4"
+            android:hint="Max cost"
+            android:inputType="number"
+            android:selectAllOnFocus="true"></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/adults_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="Adults" />
+
+        <EditText
+            android:id="@+id/tourinfo_adult"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="4"
+            android:hint="30"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="Childs" />
+
+        <EditText
+            android:id="@+id/tourinfo_childs"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="4"
+            android:hint="20"
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
+
+
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/tourinfo_is_private"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Is private"></CheckBox>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:weightSum="10"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_weight="2">
+
+        <RatingBar
+            android:id="@+id/simpleRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="5"
+            android:outlineAmbientShadowColor="@color/colorTheme"
+            android:rating="2.5" />
+
+        <Button
+            android:id="@+id/submit_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Rate"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:background="@color/colorTheme"
+            android:layout_weight="5"></Button>
+    </LinearLayout>
+
+
+</LinearLayout>
