@@ -1,6 +1,8 @@
 package com.example.travelapp.ui.history;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -8,6 +10,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelapp.R;
+import com.example.travelapp.UpdateTourActivity;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
@@ -35,6 +38,7 @@ public class TourInfor extends AppCompatActivity {
         child = findViewById(R.id.tourinfo_childs);
         min = findViewById(R.id.tourinfo_min_cost);
         max = findViewById(R.id.tourinfo_max_cost);
+        edit= findViewById(R.id.tourinfo_edit);
 //        get Intern
         final int tourID = getIntent().getIntExtra("internId", -1);
         UserService userService = RetrofitClient.getUserService();
@@ -57,6 +61,8 @@ public class TourInfor extends AppCompatActivity {
                     adult.setText(max);
                     String min = res.getMinCost();
                     adult.setText(min);
+//                    Edit tour
+
                 } else {
                     // that bai
                 }
@@ -65,6 +71,15 @@ public class TourInfor extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResHistoryStopPoints> call, Throwable t) {
                 // thuong la loi cua he thong
+            }
+        });
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_edit;
+                intent_edit=new Intent(getApplicationContext(), UpdateTourActivity.class);
+                intent_edit.putExtra("tourId", tourID);
+                startActivity(intent_edit);
             }
         });
 
