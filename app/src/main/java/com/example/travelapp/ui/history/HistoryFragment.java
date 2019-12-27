@@ -21,6 +21,7 @@ import com.example.travelapp.api.model.response.ResHistoryTourUser;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
+import com.example.travelapp.ui.home.Infor_tour;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +74,9 @@ public class HistoryFragment extends Fragment {
                 Toast.makeText(getContext(), "Get History Tour: Failure", Toast.LENGTH_LONG).show();
             }
         });
+
         return root;
     }
+
 
 }
