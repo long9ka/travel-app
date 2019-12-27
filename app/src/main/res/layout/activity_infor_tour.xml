@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    android:weightSum="10">
+    android:weightSum="20">
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_marginRight="50dp"
             android:gravity="center_vertical"
             android:text="Tour's Information"
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
-        android:layout_weight="3"
+        android:layout_weight="6"
         android:background="@drawable/background_01"></ImageView>
 
     <LinearLayout
@@ -42,13 +42,12 @@
             android:text="Name:"
             android:textSize="25dp"></TextView>
 
-        <EditText
+        <TextView
             android:id="@+id/tourinfo_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="6"
-            android:text="tour's name"
-            android:textSize="25dp"></EditText>
+            android:textSize="25dp"></TextView>
 
     </LinearLayout>
 
@@ -144,26 +143,31 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_weight="2">
+        android:layout_weight="8">
 
         <RatingBar
             android:id="@+id/simpleRatingBar"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_centerHorizontal="true"
-            android:layout_weight="5"
+            android:layout_weight="2"
             android:outlineAmbientShadowColor="@color/colorTheme"
-            android:rating="2.5" />
-
+             />
+        <EditText
+            android:id="@+id/review"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="How do you think?"
+            android:layout_weight="5"></EditText>
         <Button
-            android:id="@+id/submit_rate"
+            android:id="@+id/submit_send"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="Rate"
+            android:text="Send"
             android:textColor="#fff"
             android:textStyle="bold"
             android:background="@color/colorTheme"
-            android:layout_weight="5"></Button>
+            android:layout_weight="2"></Button>
     </LinearLayout>
 
 

@@ -2,6 +2,7 @@ package com.example.travelapp.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
@@ -68,12 +70,21 @@ public class HomeFragment extends Fragment {
         Call<ResListTour> call = RetrofitClient.getUserService().getListTour(userStore.getUser().getAccessToken(), "50", number);
         call.enqueue(new Callback<ResListTour>() {
             @Override
-            public void onResponse(Call<ResListTour> call, Response<ResListTour> response) {
+            public void onResponse(Call<ResListTour> call, final Response<ResListTour> response) {
                 if (response.isSuccessful()) {
                     @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("totalTour", response.body().getTotal()).apply();
                     customAdapter = new CustomAdapter(root.getContext(), R.layout.list_tour, response.body().getTours());
                     listView.setAdapter(customAdapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent i;
+                            int in_ID=response.body().getTours().get(position).getId();
+                            i=new Intent(root.getContext(),Infor_tour.class);
+                            startActivity(i.putExtra("ID", in_ID));
+                        }
+                    });
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());

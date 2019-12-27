@@ -1,9 +1,12 @@
 package com.example.travelapp.ui.home;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,23 +22,27 @@ import retrofit2.Response;
 
 public class Infor_tour extends AppCompatActivity {
     ImageButton delete;
-    Button edit, stop;
-    EditText name, adult, child, min, max;
+    Button send;
+    EditText adult, child, min, max,review;
+    TextView name;
+    RatingBar rate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infor_tour);
         //        anh xa
         delete= (ImageButton) findViewById(R.id.tourinfo_delete);
-        edit=(Button) findViewById(R.id.tourinfo_edit);
-        stop= (Button) findViewById(R.id.tourinfo_stop);
-        name=(EditText) findViewById(R.id.tourinfo_name);
+        send= (Button) findViewById(R.id.submit_send);
+        name=(TextView) findViewById(R.id.tourinfo_name);
         adult=(EditText) findViewById(R.id.tourinfo_adult);
         child=(EditText) findViewById(R.id.tourinfo_childs);
         min=(EditText) findViewById(R.id.tourinfo_min_cost);
         max=(EditText) findViewById(R.id.tourinfo_max_cost);
+        rate=(RatingBar) findViewById(R.id.simpleRatingBar);
+        review=(EditText) findViewById(R.id.review);
+        String str_rate;
 //        get Intern
-        final int tourID= getIntent().getIntExtra("internId", -1);
+        final int tourID= getIntent().getIntExtra("ID", -1);
         UserService userService = RetrofitClient.getUserService();
         UserStore userStore = new UserStore(this);
         Call<ResHistoryStopPoints> call = userService.getHitoryStopPoint(userStore.getUser().getAccessToken(), String.valueOf(tourID));
@@ -56,6 +63,14 @@ public class Infor_tour extends AppCompatActivity {
                     adult.setText(max);
                     String min=res.getMinCost();
                     adult.setText(min);
+//                    Send review rating
+                    send.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int star=rate.getNumStars();
+                            String rep=review.getText();
+                        }
+                    });
                 } else {
                     // that bai
                 }
