@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/ActionBar"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="m"
+        android:allowBackup="true"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false">
         <!--Tour info-->
         <activity android:name=".ui.history.TourInfor" />
         <!--Update tour-->

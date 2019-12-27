@@ -70,14 +70,14 @@ public class CustomAdapter extends ArrayAdapter<ResTour> {
         viewHolder.cost = convertView.findViewById(R.id.cost);
         viewHolder.people = convertView.findViewById(R.id.people);
         ResTour tour = objects.get(position);
-        
+
         if (tour.getAvatar() == null) {
             Random rand = new Random();
             viewHolder.imageView.setBackgroundResource(list.get(rand.nextInt(list.size())));
         } else {
             //viewHolder.imageView.setBackgroundResource((Integer) tour.getAvatar());
         }
-        
+
         if (!tour.getName().equals("")) {
             viewHolder.tourName.setText(tour.getName() + " ");
         }
