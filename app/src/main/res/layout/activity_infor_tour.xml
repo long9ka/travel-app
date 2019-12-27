@@ -1,174 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
     android:weightSum="20">
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:layout_marginRight="50dp"
-            android:gravity="center_vertical"
-            android:text="Tour's Information"
-            android:textColor="#000"
-            android:textSize="30dp"
-            ></TextView>
-
-
     <ImageView
+        android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="6"
-        android:background="@drawable/background_01"></ImageView>
+        android:layout_height="150dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/background_01"
+        android:scaleType="fitCenter"
+        app:layout_constraintVertical_bias="0.01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tour_name"
+        tools:ignore="ContentDescription"
+        tools:layout_editor_absoluteX="20dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="10">
-
-        <TextView
-            style="@style/CardView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center"
-            android:text="Name:"
-            android:textSize="25dp"></TextView>
-
-        <TextView
-            android:id="@+id/tourinfo_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:textSize="25dp"></TextView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="9">
-
-        <EditText
-            android:id="@+id/tourinfo_min_cost"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
-            android:layout_weight="4"
-            android:hint="Min cost"
-            android:inputType="number"
-            android:selectAllOnFocus="true" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="-"
-            android:textSize="10pt" />
-
-        <EditText
-            android:id="@+id/tourinfo_max_cost"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
-            android:layout_weight="4"
-            android:hint="Max cost"
-            android:inputType="number"
-            android:selectAllOnFocus="true"></EditText>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/adults_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:text="Adults" />
-
-        <EditText
-            android:id="@+id/tourinfo_adult"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
-            android:layout_weight="4"
-            android:hint="30"
-            android:inputType="number"
-            android:selectAllOnFocus="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:text="Childs" />
-
-        <EditText
-            android:id="@+id/tourinfo_childs"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="16dp"
-            android:layout_weight="4"
-            android:hint="20"
-            android:inputType="number"
-            android:selectAllOnFocus="true" />
-
-
-    </LinearLayout>
-    <CheckBox
-        android:id="@+id/tourinfo_is_private"
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/tour_name"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Is private"></CheckBox>
-    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Tour name"
+        android:textSize="10pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_margin="16dp"
+        android:id="@+id/costs"
+        android:textSize="8pt"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:weightSum="10"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_weight="8">
+        app:layout_constraintVertical_bias="0"
+        android:layout_height="wrap_content"
+        android:text="$: 10000 - 20000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/background"
+        tools:ignore="HardcodedText" />
 
-        <RatingBar
-            android:id="@+id/simpleRatingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="2"
-            android:outlineAmbientShadowColor="@color/colorTheme"
-             />
-        <EditText
-            android:id="@+id/review"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:hint="How do you think?"
-            android:layout_weight="5"></EditText>
-        <Button
-            android:id="@+id/submit_send"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="Send"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:background="@color/colorTheme"
-            android:layout_weight="2"></Button>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/people"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Adults: 2000, Child: 3000"
+        android:textSize="8pt"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/costs"
+        tools:ignore="HardcodedText" />
 
+    <CheckBox
+        android:id="@+id/is_private"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Is private"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/people"
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="HardcodedText" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rating"
+        app:layout_constraintBottom_toTopOf="@+id/rating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/is_private"
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="HardcodedText" />
+
+    <RatingBar
+        android:id="@+id/rating"
+        android:stepSize="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:isIndicator="false"
+        android:layout_centerHorizontal="true"
+        android:outlineSpotShadowColor="@color/colorTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/is_private"
+        app:layout_constraintVertical_bias="0.1"
+        tools:ignore="UnusedAttribute" />
+
+    <EditText
+        android:id="@+id/review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Feedback"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rating"
+        tools:ignore="HardcodedText,TextFields,UnusedAttribute" />
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        app:layout_constraintVertical_bias="0"
+        android:backgroundTint="@color/colorButton"
+        style="@style/Widget.AppCompat.Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/review"
+        tools:ignore="HardcodedText" />
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

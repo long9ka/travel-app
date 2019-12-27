@@ -29,6 +29,7 @@ import com.example.travelapp.R;
 import com.example.travelapp.api.model.response.ResListTour;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.store.UserStore;
+import com.example.travelapp.ui.history.TourInfor;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,17 +73,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<ResListTour> call, final Response<ResListTour> response) {
                 if (response.isSuccessful()) {
+                    // get total tour
                     @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("totalTour", response.body().getTotal()).apply();
+                    // set adapter
                     customAdapter = new CustomAdapter(root.getContext(), R.layout.list_tour, response.body().getTours());
                     listView.setAdapter(customAdapter);
+                    // click item
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent i;
-                            int in_ID=response.body().getTours().get(position).getId();
-                            i=new Intent(root.getContext(),Infor_tour.class);
-                            startActivity(i.putExtra("ID", in_ID));
+                            Intent intent = new Intent(root.getContext(), Infor_tour.class);
+                            intent.putExtra("tourId", String.valueOf(response.body().getTours().get(position).getId()));
+                            startActivity(intent);
                         }
                     });
                 } else {

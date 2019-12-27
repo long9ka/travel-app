@@ -5,6 +5,7 @@ import com.example.travelapp.api.model.request.ReqFacebookLogin;
 import com.example.travelapp.api.model.request.ReqLogin;
 import com.example.travelapp.api.model.request.ReqPasswordRecovery;
 import com.example.travelapp.api.model.request.ReqRegister;
+import com.example.travelapp.api.model.request.ReqReviewTour;
 import com.example.travelapp.api.model.request.ReqSetStopPoints;
 import com.example.travelapp.api.model.request.ReqSuggestStopPoint;
 import com.example.travelapp.api.model.request.ReqUpdatePassword;
@@ -81,4 +82,7 @@ public interface UserService {
     
     @POST("/user/update-password")
     Call<ResSetStopPoints> changePassword(@Header("Authorization")String string, @Body ReqUpdatePassword reqUpdatePassword);
+    
+    @POST("/tour/add/review")
+    Call<ResSetStopPoints> sendFeedback(@Header("Authorization")String string, @Body ReqReviewTour reqReviewTour);
 }
