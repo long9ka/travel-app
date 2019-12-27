@@ -1,10 +1,13 @@
 package com.example.travelapp.ui.history;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,6 +34,7 @@ import retrofit2.Response;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class HistoryFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,10 +46,20 @@ public class HistoryFragment extends Fragment {
                 .getHistoryTourUser(userStore.getUser().getAccessToken(), "1", "1000");
         call.enqueue(new Callback<ResHistoryTourUser>() {
             @Override
-            public void onResponse(Call<ResHistoryTourUser> call, Response<ResHistoryTourUser> response) {
+            public void onResponse(Call<ResHistoryTourUser> call, final Response<ResHistoryTourUser> response) {
                 if (response.isSuccessful()) {
-                    HistoryAdapter adapter = new HistoryAdapter(root.getContext(), R.layout.history_adapter, response.body().getTours());
+                    final HistoryAdapter adapter = new HistoryAdapter(root.getContext(), R.layout.history_adapter, response.body().getTours());
                     listView.setAdapter(adapter);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent;
+                            int internID=response.body().getTours().get(position).getId();
+                            intent = new Intent(root.getContext(),TourInfor.class);
+                            startActivity(intent.putExtra("internId",internID));
+                        }
+                    });
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -63,4 +77,5 @@ public class HistoryFragment extends Fragment {
         });
         return root;
     }
+
 }
