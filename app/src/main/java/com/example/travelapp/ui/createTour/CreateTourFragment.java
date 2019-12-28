@@ -47,6 +47,9 @@ public class CreateTourFragment extends Fragment implements DatePickerDialog.OnD
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_create_tour, container, false);
 
+        //test
+        startActivity(new Intent(root.getContext(), MapsActivity.class));
+
         final EditText tourNameEditText = root.findViewById(R.id.tour_name);
         final EditText minCostEditText = root.findViewById(R.id.min_cost);
         final EditText maxCostEditText = root.findViewById(R.id.max_cost);

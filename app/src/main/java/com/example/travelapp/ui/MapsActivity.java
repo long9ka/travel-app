@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -69,9 +70,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String startDate, endDate;
     private int clickDatePicker;
     private TextView startDateTextView, endDateTextView;
-    private int locationRequestCode = 1000;
     private String id;
+    private int locationRequestCode = 1000;
     private double wayLatitude = 0.0, wayLongitude = 0.0;
+    private ListView lvStop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +113,53 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             // TODO: here
             UserStore userStore = new UserStore(getApplicationContext());
             UserService userService = RetrofitClient.getUserService();
+            View view = getLayoutInflater().inflate(R.layout.popup_show_stop_points, null);
+            lvStop= (ListView) findViewById(R.id.list_stop);
+
+//            new AlertDialog.Builder(MapsActivity.this)
+//                    .setTitle("Show stop point")
+//                    .setView(view)
+//                    .setNegativeButton("Cancel", null)
+//                    .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+////                            Call<ResSetStopPoints> call = userService.setStopPoints(
+////                                    userStore.getUser().getAccessToken(),
+////                                    new ReqSetStopPoints(id, stopPoints)
+////                            );
+////                            call.enqueue(new Callback<ResSetStopPoints>() {
+////                                @Override
+////                                public void onResponse(Call<ResSetStopPoints> call, Response<ResSetStopPoints> response) {
+////                                    if (response.isSuccessful()) {
+////                                        Toast.makeText(getApplicationContext(), "Add stop points successful", Toast.LENGTH_SHORT).show();
+////                                        finish();
+////                                    } else {
+////                                        try {
+////                                            JSONObject jsonObject = new JSONObject(response.errorBody().string());
+////                                            String msg = jsonObject.getJSONArray("message").getJSONObject(0).get("msg").toString();
+////                                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+////                                        } catch (JSONException | IOException e) {
+////                                            e.printStackTrace();
+////                                        }
+////                                    }
+////                                }
+////
+////                                @Override
+////                                public void onFailure(Call<ResSetStopPoints> call, Throwable t) {
+////                                    Toast.makeText(getApplicationContext(), "Add stop points failed", Toast.LENGTH_LONG).show();
+////                                }
+////                            });
+//                        }
+//                    })
+//                    .show();
+
+
+
+
+
+
+
+
             Call<ResSetStopPoints> call = userService.setStopPoints(
                     userStore.getUser().getAccessToken(),
                     new ReqSetStopPoints(id, stopPoints)
@@ -365,3 +414,5 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 }
+
+
