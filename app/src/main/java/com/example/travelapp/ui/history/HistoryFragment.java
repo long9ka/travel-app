@@ -56,7 +56,10 @@ public class HistoryFragment extends Fragment {
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            startActivity(new Intent(root.getContext(), TourInfor.class));
+                            String tourID=String.valueOf(response.body().getTours().get(position).getId());
+                            Intent intent=new Intent(root.getContext(),TourInfor.class);
+                            intent.putExtra("tourID", tourID);
+                            startActivity(intent);
                         }
                     });
                 } else {

@@ -11,6 +11,8 @@ import com.example.travelapp.api.model.request.ReqSuggestStopPoint;
 import com.example.travelapp.api.model.request.ReqUpdatePassword;
 import com.example.travelapp.api.model.request.ReqVerifyOtpRecovery;
 import com.example.travelapp.api.model.request.ReqEditUserInfo;
+import com.example.travelapp.api.model.request.Tour;
+import com.example.travelapp.api.model.request.UpdateTour;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.model.response.ResHistoryTourUser;
 import com.example.travelapp.api.model.response.ResCreateTour;
@@ -85,4 +87,7 @@ public interface UserService {
     
     @POST("/tour/add/review")
     Call<ResSetStopPoints> sendFeedback(@Header("Authorization")String string, @Body ReqReviewTour reqReviewTour);
+
+    @POST("/tour/update-tour")
+    Call<Tour> sendData(@Header("Authorization")String string, @Body UpdateTour updateTour);
 }
