@@ -5,6 +5,8 @@
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -17,6 +19,9 @@
         android:theme="@style/ActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
+        <activity android:name=".ui.followTour.sound" />
+
         <activity
             android:label="Review"
             android:parentActivityName=".ui.home.Infor_tour"
