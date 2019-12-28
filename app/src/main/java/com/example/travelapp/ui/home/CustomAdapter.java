@@ -34,6 +34,10 @@ public class CustomAdapter extends ArrayAdapter<ResTour> {
     private List<Integer> list;
     private  List<Integer> realPos;
 
+    public List<Integer> getRealPos() {
+        return realPos;
+    }
+    
     private void initRealPos() {
         realPos = new ArrayList<>();
         for(int i = 0; i < arrayList.size(); i++) {
@@ -53,7 +57,7 @@ public class CustomAdapter extends ArrayAdapter<ResTour> {
         this.context = context;
         this.resource = resource;
         this.objects = objects;
-
+        
         list = new ArrayList<>();
         list.add(R.drawable.background_01);
         list.add(R.drawable.background_02);
@@ -88,7 +92,8 @@ public class CustomAdapter extends ArrayAdapter<ResTour> {
 
         if (tour.getAvatar() == null) {
             Random rand = new Random();
-            viewHolder.imageView.setBackgroundResource(list.get(rand.nextInt(1)));
+            int background = list.get(rand.nextInt(list.size()));
+            viewHolder.imageView.setBackgroundResource(background);
         } else {
             //viewHolder.imageView.setBackgroundResource((Integer) tour.getAvatar());
         }
