@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelapp.R;
 import com.example.travelapp.UpdateTourActivity;
+import com.example.travelapp.api.model.request.UpdateTour;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
@@ -56,7 +57,7 @@ public class TourInfor extends AppCompatActivity {
         Call<ResHistoryStopPoints> call = userService.getHitoryStopPoint(userStore.getUser().getAccessToken(), tourID);
         call.enqueue(new Callback<ResHistoryStopPoints>() {
             @Override
-            public void onResponse(Call<ResHistoryStopPoints> call, Response<ResHistoryStopPoints> response) {
+            public void onResponse(Call<ResHistoryStopPoints> call, final Response<ResHistoryStopPoints> response) {
                 if (response.isSuccessful()) {
                     Log.d("INFO", "into");
 
@@ -85,6 +86,33 @@ public class TourInfor extends AppCompatActivity {
                     maxC.setText(maxCost);
                     String minCost=res.getMinCost();
                     minC.setText(minCost);
+                    delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder=new AlertDialog.Builder(getApplicationContext());
+                            builder.setTitle("Travel App");
+                            builder.setMessage("Are you want to delete this tour?");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ResHistoryStopPoints tour=response.body();
+                                    tour.setStatus(-1);
+                                    Call<UpdateTour> newCall=userService.sendData(userStore.getUser().getAccessToken(),tour);
+                                    Intent yes=new Intent(getApplicationContext(),HistoryFragment.class);
+                                    startActivity(yes);
+                                }
+                            });
+                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog= builder.create();
+                            alertDialog.show();
+                        }
+                    });
 //                    Edit tour
                 } else {
                     // that bai
@@ -99,19 +127,14 @@ public class TourInfor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String token=userStore.getUser().getAccessToken();
-//                Call<TourInfor> call=userService.getListTour()
+
                 Intent intent_edit;
                 intent_edit=new Intent(getApplicationContext(), UpdateTourActivity.class);
                 intent_edit.putExtra("tourId", tourID);
                 startActivity(intent_edit);
             }
         });
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    showAlertDialog();
-            }
-        });
+
         audio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +147,7 @@ public class TourInfor extends AppCompatActivity {
     public void showAlertDialog(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("Travel App");
-        builder.setMessage("Are you sure?");
+        builder.setMessage("Are you want to delete this tour?");
         builder.setCancelable(false);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -132,6 +155,7 @@ public class TourInfor extends AppCompatActivity {
 //                UserStore.
                 Intent yes=new Intent(getApplicationContext(),HistoryFragment.class);
                 startActivity(yes);
+
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
