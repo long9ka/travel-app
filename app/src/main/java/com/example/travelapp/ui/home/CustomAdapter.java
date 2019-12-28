@@ -92,7 +92,7 @@ public class CustomAdapter extends ArrayAdapter<ResTour> {
 
         if (tour.getAvatar() == null) {
             Random rand = new Random();
-            int background = list.get(rand.nextInt(list.size()));
+            int background = list.get(rand.nextInt(1));
             viewHolder.imageView.setBackgroundResource(background);
         } else {
             //viewHolder.imageView.setBackgroundResource((Integer) tour.getAvatar());

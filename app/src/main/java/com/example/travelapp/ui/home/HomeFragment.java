@@ -68,9 +68,9 @@ public class HomeFragment extends Fragment {
         Random rand = new Random();
         String number = String.valueOf(rand.nextInt(Integer.parseInt(total)/50));
         UserStore userStore = new UserStore(root.getContext());
-        Call<ResListTour> call = RetrofitClient.getUserService().getListTour(userStore.getUser().getAccessToken(), "50", number);
+            Call<ResListTour> call = RetrofitClient.getUserService().getListTour(userStore.getUser().getAccessToken(), "50", number);
         call.enqueue(new Callback<ResListTour>() {
-            @Override
+                @Override
             public void onResponse(Call<ResListTour> call, final Response<ResListTour> response) {
                 if (response.isSuccessful()) {
                     // get total tour

@@ -40,8 +40,10 @@ public class MembersActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResHistoryStopPoints> call, Response<ResHistoryStopPoints> response) {
                 if (response.isSuccessful()) {
+                    Log.i("ahihi", String.valueOf(response.body().getMembers().size()));
                     if (response.body().getMembers().isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Empty", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         ListView listView = findViewById(R.id.list_item);
                         MembersAdapter adapter = new MembersAdapter(getApplicationContext(), R.layout.member_adapter, response.body().getMembers());

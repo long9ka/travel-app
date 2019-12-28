@@ -20,9 +20,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:label="members"
+            android:label="Stop points"
             android:parentActivityName=".ui.home.Infor_tour"
-            android:name=".ui.MembersActivity" />
+            android:name=".ui.StopPointActivity" />
+        <activity
+            android:name=".ui.MembersActivity"
+            android:label="members"
+            android:parentActivityName=".ui.home.Infor_tour" />
         <activity
             android:name=".ui.CommentListActivity"
             android:label="Comments"

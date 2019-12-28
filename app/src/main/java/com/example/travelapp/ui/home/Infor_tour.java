@@ -28,6 +28,7 @@ import com.example.travelapp.api.model.response.ResSetStopPoints;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
+import com.example.travelapp.ui.StopPointActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,7 +63,7 @@ public class Infor_tour extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), MembersActivity.class).putExtra("tourId", tourId));
         }
         if (item.getItemId() == R.id.stop_points) {
-            Log.i("ahihi", "click stop points");
+            startActivity(new Intent(getApplicationContext(), StopPointActivity.class).putExtra("tourId", tourId));
         }
         if (item.getItemId() == R.id.comments_stop_points) {
             Log.i("ahihi", "click comments stop points");
