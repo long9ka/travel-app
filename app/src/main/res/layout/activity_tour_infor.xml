@@ -14,14 +14,14 @@
         android:weightSum="10">
 
         <TextView
-            android:layout_width="326dp"
+            android:id="@+id/tourinfo_name"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="50dp"
             android:layout_weight="9"
-            android:gravity="center_vertical"
-            android:text="Tour's Information"
-            android:textColor="#000"
-            android:textSize="30dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="tour's name"
+            android:textSize="25dp"
             ></TextView>
 
         <ImageButton
@@ -39,34 +39,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:background="@drawable/background_01"></ImageView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="10">
-
-        <TextView
-            style="@style/CardView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center"
-            android:text="Name:"
-            android:textSize="25dp"></TextView>
-
-        <EditText
-            android:id="@+id/tourinfo_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:text="tour's name"
-            android:textSize="25dp"></EditText>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -119,7 +94,7 @@
             android:layout_marginHorizontal="16dp"
             android:text="Adults" />
 
-        <EditText
+        <TextView
             android:id="@+id/tourinfo_adult"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -127,7 +102,8 @@
             android:layout_weight="4"
             android:hint="30"
             android:inputType="number"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:gravity="center"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -135,7 +111,7 @@
             android:layout_marginHorizontal="16dp"
             android:text="Childs" />
 
-        <EditText
+        <TextView
             android:id="@+id/tourinfo_childs"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -143,7 +119,8 @@
             android:layout_weight="4"
             android:hint="20"
             android:inputType="number"
-            android:selectAllOnFocus="true" />
+            android:selectAllOnFocus="true"
+            android:gravity="center"/>
 
 
     </LinearLayout>

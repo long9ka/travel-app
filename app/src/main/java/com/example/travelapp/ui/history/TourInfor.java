@@ -3,10 +3,13 @@ package com.example.travelapp.ui.history;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +29,8 @@ import retrofit2.Response;
 public class TourInfor extends AppCompatActivity {
     ImageButton delete;
     Button edit, stop, audio;
-    EditText name, adult, child, min, max;
+    TextView name, adult, child, minC, maxC;
+    CheckBox is_private;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,32 +43,48 @@ public class TourInfor extends AppCompatActivity {
         name = findViewById(R.id.tourinfo_name);
         adult = findViewById(R.id.tourinfo_adult);
         child = findViewById(R.id.tourinfo_childs);
-        min = findViewById(R.id.tourinfo_min_cost);
-        max = findViewById(R.id.tourinfo_max_cost);
+        minC = findViewById(R.id.tourinfo_min_cost);
+        maxC = findViewById(R.id.tourinfo_max_cost);
         edit= findViewById(R.id.tourinfo_edit);
         audio=findViewById(R.id.tourinfo_play);
+        is_private=findViewById(R.id.tourinfo_is_private);
 //        get Intern
-        final int tourID = getIntent().getIntExtra("internId", -1);
-        UserService userService = RetrofitClient.getUserService();
+        final String tourID = getIntent().getStringExtra("tourID");
+        Log.d("INFO", tourID);
+        final UserService userService = RetrofitClient.getUserService();
         final UserStore userStore = new UserStore(this);
-        Call<ResHistoryStopPoints> call = userService.getHitoryStopPoint(userStore.getUser().getAccessToken(), String.valueOf(tourID));
+        Call<ResHistoryStopPoints> call = userService.getHitoryStopPoint(userStore.getUser().getAccessToken(), tourID);
         call.enqueue(new Callback<ResHistoryStopPoints>() {
             @Override
             public void onResponse(Call<ResHistoryStopPoints> call, Response<ResHistoryStopPoints> response) {
                 if (response.isSuccessful()) {
+                    Log.d("INFO", "into");
+
                     // thanh cong
                     ResHistoryStopPoints res = response.body();
 //                    Set text
                     String tourName = res.getName();
+                    Log.d("INFO", tourName);
                     name.setText(tourName);
                     Number count_Adults = res.getAdults();
                     adult.setText(count_Adults.toString());
                     Number count_Child = res.getChilds();
                     adult.setText(count_Child.toString());
-                    String max = res.getMaxCost();
-                    adult.setText(max);
-                    String min = res.getMinCost();
-                    adult.setText(min);
+                    int adu = res.getAdults();
+                    adult.setText(adu);
+                    int chi = res.getChilds();
+                    adult.setText(chi);
+                    Boolean is=res.getIsPrivate();
+                    if(is){
+                        is_private.setChecked(true);
+                    }
+                    else {
+                        is_private.setChecked(false);
+                    }
+                    String maxCost=res.getMaxCost();
+                    maxC.setText(maxCost);
+                    String minCost=res.getMinCost();
+                    minC.setText(minCost);
 //                    Edit tour
                 } else {
                     // that bai
@@ -79,7 +99,7 @@ public class TourInfor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String token=userStore.getUser().getAccessToken();
-
+//                Call<TourInfor> call=userService.getListTour()
                 Intent intent_edit;
                 intent_edit=new Intent(getApplicationContext(), UpdateTourActivity.class);
                 intent_edit.putExtra("tourId", tourID);
@@ -109,6 +129,7 @@ public class TourInfor extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+//                UserStore.
                 Intent yes=new Intent(getApplicationContext(),HistoryFragment.class);
                 startActivity(yes);
             }
@@ -119,7 +140,6 @@ public class TourInfor extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
         AlertDialog alertDialog= builder.create();
         alertDialog.show();
     }
