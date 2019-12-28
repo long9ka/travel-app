@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelapp.R;
 import com.example.travelapp.ui.CommentListActivity;
+import com.example.travelapp.ui.MembersActivity;
 import com.example.travelapp.ui.ReviewTourActivity;
 import com.example.travelapp.api.model.request.ReqReviewTour;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
@@ -58,7 +59,7 @@ public class Infor_tour extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), CommentListActivity.class).putExtra("tourId", tourId));
         }
         if (item.getItemId() == R.id.members) {
-            Log.i("ahihi", "click members");
+            startActivity(new Intent(getApplicationContext(), MembersActivity.class).putExtra("tourId", tourId));
         }
         if (item.getItemId() == R.id.stop_points) {
             Log.i("ahihi", "click stop points");
