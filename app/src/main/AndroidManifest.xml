@@ -19,7 +19,10 @@
         android:theme="@style/ActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.CommentListActivity"></activity>
+        <activity
+            android:label="Comments"
+            android:parentActivityName=".ui.home.Infor_tour"
+            android:name=".ui.CommentListActivity" />
         <activity android:name=".ui.followTour.sound" />
         <activity
             android:name=".ui.ReviewTourActivity"
