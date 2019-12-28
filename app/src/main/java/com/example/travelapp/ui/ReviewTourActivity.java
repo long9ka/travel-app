@@ -44,7 +44,8 @@ public class ReviewTourActivity extends AppCompatActivity {
             public void onResponse(Call<ResReviewList> call, Response<ResReviewList> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getReviewList().size() == 0) {
-                        Toast.makeText(getApplicationContext(), "Review list is empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Empty", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                     ListView listView = findViewById(R.id.list_item);
                     // set adapter

@@ -2,7 +2,6 @@ package com.example.travelapp.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,42 +13,42 @@ import androidx.annotation.Nullable;
 
 import com.example.travelapp.R;
 import com.example.travelapp.api.model.response.CommentList;
-import com.example.travelapp.api.model.response.Member;
+import com.example.travelapp.api.model.response.HistoryStopPoint;
 
 import java.util.List;
 
-public class MembersAdapter extends ArrayAdapter<Member> {
-
+public class AdapterStopPoints extends ArrayAdapter<HistoryStopPoint> {
     private Context context;
     private int resource;
-    private List<Member> objects;
+    private List<HistoryStopPoint> objects;
 
     private class ViewHolder {
         TextView name;
-        TextView phone;
-        TextView isHost;
+        TextView serviceIdType;
+        TextView costs;
     }
     
-    MembersAdapter(@NonNull Context context, int resource, @NonNull List<Member> objects) {
+    AdapterStopPoints(@NonNull Context context, int resource, @NonNull List<HistoryStopPoint> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
         this.objects = objects;
     }
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint({"ViewHolder", "SetTextI18n"})
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(resource, parent, false);
+        
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.name = convertView.findViewById(R.id.name);
-        viewHolder.phone = convertView.findViewById(R.id.phone);
-        viewHolder.isHost = convertView.findViewById(R.id.is_host);
+        viewHolder.serviceIdType = convertView.findViewById(R.id.service);
+        viewHolder.costs = convertView.findViewById(R.id.cost);
         
         viewHolder.name.setText(objects.get(position).getName());
-        viewHolder.phone.setText(objects.get(position).getPhone());
-        viewHolder.isHost.setText(String.valueOf(objects.get(position).getIsHost()));
+        viewHolder.costs.setText("$: " + objects.get(position).getMinCost() + " - " + objects.get(position).getMaxCost());
+        viewHolder.serviceIdType.setText(String.valueOf(objects.get(position).getServiceId()));
         return convertView;
     }
 }
