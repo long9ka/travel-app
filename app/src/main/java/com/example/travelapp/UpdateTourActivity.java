@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -15,8 +16,11 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.travelapp.api.model.request.ReqUpdateTour;
+import com.example.travelapp.api.model.response.HistoryStopPoint;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.model.response.ResHistoryTourUser;
+import com.example.travelapp.api.model.response.ResUpdateTour;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
@@ -41,6 +45,7 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
     private TextView startDateTextView, endtDateTextView;
     private String startDate, endDate, adults = "10", child = "10", isPrivate = "false";
     private int clickDatePicker;
+    Button btnSubmit;
     
     private static String getDate(long milliSeconds) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -54,8 +59,8 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_tour);
         String tourId = getIntent().getStringExtra("tourId");
-        UserStore userStore = new UserStore(this);
-        UserService userService = RetrofitClient.getUserService();
+        final UserStore userStore = new UserStore(this);
+        final UserService userService = RetrofitClient.getUserService();
         
         final EditText tourNameEditText = findViewById(R.id.tour_name);
         final EditText minCostEditText = findViewById(R.id.min_cost);
@@ -63,6 +68,7 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
         final CheckBox isPrivateCheckBox = findViewById(R.id.is_private);
         final NumberPicker adultsPicker = findViewById(R.id.adults);
         final NumberPicker childPicker = findViewById(R.id.childs);
+        btnSubmit=findViewById(R.id.update_tour_button);
         startDateTextView = findViewById(R.id.start_date);
         endtDateTextView = findViewById(R.id.end_date);
 
@@ -115,6 +121,43 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
                             showDatePicker();
                         }
                     });
+//                    update
+                    final ResHistoryStopPoints res=response.body();
+
+                    btnSubmit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String updateId=res.getId().toString();
+                            String updateName=tourNameEditText.getText().toString();
+                            String updateStartDate="";
+                            String updateEndDate="";
+                            int updateAdults=adultsPicker.getValue();
+                            int updateChilds=childPicker.getValue();
+                            String updateMincost=minCostEditText.getText().toString();
+                            String updateMaxcost=maxCostEditText.getText().toString();
+                            String updateStatus=res.getStatus().toString();
+                            String updateIsprivate;
+                            if(isPrivateCheckBox.isChecked()){
+                                updateIsprivate="true";
+                            }else{
+                                updateIsprivate="false";
+                            }
+
+                            final ReqUpdateTour reqUpdateTour=new ReqUpdateTour(
+                                    updateId,
+                                    updateName,
+                                    updateStartDate,
+                                    updateEndDate,
+                                    updateAdults,
+                                    updateChilds,
+                                    updateMincost,
+                                    updateMaxcost,
+                                    updateStatus,
+                                    updateIsprivate
+                            );
+                            update(reqUpdateTour,res,userService,userStore);
+                        }
+                    });
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -130,6 +173,26 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
                 Toast.makeText(getApplicationContext(), "Get History Tour: Failure", Toast.LENGTH_LONG).show();
             }
         });
+
+
+
+    }
+    public  void update(ReqUpdateTour reqUpdateTour,final ResHistoryStopPoints res, final UserService userService, final UserStore userStore){
+
+        Call<ResUpdateTour> call=userService.sendData(userStore.getUser().getUserId(),reqUpdateTour);
+        call.enqueue(new Callback<ResUpdateTour>() {
+            @Override
+            public void onResponse(Call<ResUpdateTour> call, Response<ResUpdateTour> response) {
+                Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResUpdateTour> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"fail",Toast.LENGTH_LONG).show();
+
+            }
+        });
+        finish();
     }
 
     private void showDatePicker() {
