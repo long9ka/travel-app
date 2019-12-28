@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,7 +98,7 @@ public class CreateTourFragment extends Fragment implements DatePickerDialog.OnD
         createTourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserStore userStore = new UserStore(root.getContext());
+                final UserStore userStore = new UserStore(root.getContext());
                 Call<ResCreateTour> call = RetrofitClient.
                         getUserService().
                         createTour(
@@ -119,6 +120,8 @@ public class CreateTourFragment extends Fragment implements DatePickerDialog.OnD
                         if (response.isSuccessful()) {
                             Intent intent = new Intent(root.getContext(), MapsActivity.class);
                             intent.putExtra("id", response.body().getId());
+                            Log.i("ahihi", userStore.getUser().getAccessToken());
+                            Log.i("ahihi", response.body().getId());
                             startActivity(intent);
                         } else {
                             try {

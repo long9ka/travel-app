@@ -9,10 +9,12 @@ import com.example.travelapp.api.model.request.ReqReviewTour;
 import com.example.travelapp.api.model.request.ReqSetStopPoints;
 import com.example.travelapp.api.model.request.ReqSuggestStopPoint;
 import com.example.travelapp.api.model.request.ReqUpdatePassword;
+import com.example.travelapp.api.model.request.ReqUpdateTour;
 import com.example.travelapp.api.model.request.ReqVerifyOtpRecovery;
 import com.example.travelapp.api.model.request.ReqEditUserInfo;
 import com.example.travelapp.api.model.request.Tour;
 import com.example.travelapp.api.model.request.UpdateTour;
+import com.example.travelapp.api.model.response.ResCommentList;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.model.response.ResHistoryTourUser;
 import com.example.travelapp.api.model.response.ResCreateTour;
@@ -25,6 +27,7 @@ import com.example.travelapp.api.model.response.ResReviewList;
 import com.example.travelapp.api.model.response.ResSendVerifyCode;
 import com.example.travelapp.api.model.response.ResSetStopPoints;
 import com.example.travelapp.api.model.response.ResSuggestStopPoint;
+import com.example.travelapp.api.model.response.ResUpdateTour;
 import com.example.travelapp.api.model.response.ResUserInfo;
 import com.example.travelapp.api.model.response.ResVerifyCode;
 import com.example.travelapp.api.model.response.ResVerifyOtpRecovery;
@@ -90,9 +93,11 @@ public interface UserService {
     Call<ResSetStopPoints> sendFeedback(@Header("Authorization")String string, @Body ReqReviewTour reqReviewTour);
 
     @POST("/tour/update-tour")
-    Call<Tour> sendData(@Header("Authorization")String string, @Body UpdateTour updateTour);
-
+    Call<ResUpdateTour> sendData(@Header("Authorization")String string, @Body ReqUpdateTour t);
     
     @GET("/tour/get/review-list")
     Call<ResReviewList> getReviewList(@Header("Authorization")String string, @Query("tourId")String tourId, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
+    
+    @GET("/tour/comment-list")
+    Call<ResCommentList> getComments(@Header("Authorization")String string, @Query("tourId")String tourId, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
 }
