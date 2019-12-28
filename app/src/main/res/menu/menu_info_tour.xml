@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Review"
+        android:id="@+id/review"
+        tools:ignore="HardcodedText" />
+    <item
+        android:title="Comments"
+        android:id="@+id/comments"
+        tools:ignore="HardcodedText" />
+    <item
+        android:title="Members"
+        android:id="@+id/members"
+        tools:ignore="HardcodedText" />
+    <item
+        android:title="Stop points"
+        android:id="@+id/stop_points"
+        tools:ignore="HardcodedText" />
+    <item
+        android:title="Comments stop points"
+        android:id="@+id/comments_stop_points"
+        tools:ignore="HardcodedText" />
+</menu>

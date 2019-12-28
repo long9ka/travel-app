@@ -31,7 +31,6 @@
             android:id="@+id/tour_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/alex_brush"
             android:text="Unknown"
             android:textColor="#FFF"
             android:textSize="30pt"
