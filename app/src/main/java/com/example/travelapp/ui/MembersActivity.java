@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelapp.R;
-import com.example.travelapp.api.model.response.ResCommentList;
+import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
@@ -22,30 +22,29 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CommentListActivity extends AppCompatActivity {
+public class MembersActivity extends AppCompatActivity {
 
     private UserStore userStore;
     private UserService userService;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment_list);
-        
+        setContentView(R.layout.activity_members);
         userStore = new UserStore(this);
         userService = RetrofitClient.getUserService();
         String accessToken = userStore.getUser().getAccessToken();
         String tourId = getIntent().getStringExtra("tourId");
-        Call<ResCommentList> call = userService.getComments(accessToken, tourId, "1", "1000");
-        call.enqueue(new Callback<ResCommentList>() {
+        Call<ResHistoryStopPoints> call = userService.getHitoryStopPoint(accessToken, tourId);
+        call.enqueue(new Callback<ResHistoryStopPoints>() {
             @Override
-            public void onResponse(Call<ResCommentList> call, Response<ResCommentList> response) {
+            public void onResponse(Call<ResHistoryStopPoints> call, Response<ResHistoryStopPoints> response) {
                 if (response.isSuccessful()) {
-                    if (response.body().getCommentList().isEmpty()) {
-                        Toast.makeText(getApplicationContext(), "empty", Toast.LENGTH_SHORT).show();
+                    if (response.body().getMembers().isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Empty", Toast.LENGTH_SHORT).show();
                     } else {
                         ListView listView = findViewById(R.id.list_item);
-                        CommentAdapter adapter = new CommentAdapter(getApplicationContext(), R.layout.comment_list_adapter, response.body().getCommentList());
+                        MembersAdapter adapter = new MembersAdapter(getApplicationContext(), R.layout.member_adapter, response.body().getMembers());
                         listView.setAdapter(adapter);
                     }
                 } else {
@@ -59,9 +58,10 @@ public class CommentListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResCommentList> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Load comments failure", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<ResHistoryStopPoints> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Load members failure", Toast.LENGTH_LONG).show();
             }
         });
+        
     }
 }
