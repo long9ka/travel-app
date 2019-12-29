@@ -78,10 +78,13 @@ public class DetailStopPointActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResServiceDetail> call, Response<ResServiceDetail> response) {
                 if (response.isSuccessful()) {
-                    name.setText(response.body().getName());
-                    address.setText(response.body().getAddress());
-                    contact.setText((response.body().getContact()));
-                    cost.setText(response.body().getMinCost()+" - "+response.body().getMaxCost());
+                    if(response.body().getName()!=null){
+                        name.setText(response.body().getName());
+                    }
+                    address.setText("Address: "+response.body().getAddress());
+                    cost.setText("Cost: "+response.body().getMinCost()+" - "+response.body().getMaxCost());
+                    contact.setText("Contact: "+response.body().getContact());
+
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -101,7 +104,7 @@ public class DetailStopPointActivity extends AppCompatActivity {
          * Lay danh sach cmt cua diem dung theo id
          * /tour/comment-list
          */
-        Call<ResFbService> call_list = userService.getFbService(accessToken,"1","1","1000");
+        Call<ResFbService> call_list = userService.getFbService(accessToken, Id,"1","1000");
         call_list.enqueue(new Callback<ResFbService>() {
             @Override
             public void onResponse(Call<ResFbService> call, Response<ResFbService> response) {
