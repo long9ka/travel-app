@@ -1,4 +1,4 @@
-package com.example.travelapp;
+package com.example.travelapp.ui;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
