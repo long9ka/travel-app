@@ -19,10 +19,11 @@
         android:theme="@style/ActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".ui.followTour.TourFollow"></activity>
         <activity
+            android:name=".ui.DetailStopPointActivity"
             android:label="Detail"
-            android:name=".ui.DetailStopPointActivity" 
-            android:parentActivityName=".ui.StopPointActivity"/>
+            android:parentActivityName=".ui.StopPointActivity" />
         <activity
             android:name=".ui.StopPointActivity"
             android:label="Stop points"
