@@ -53,6 +53,8 @@ public class Infor_tour extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // test tourId
+        tourId = "22";
         if (item.getItemId() == R.id.review) {
             startActivity(new Intent(getApplicationContext(), ReviewTourActivity.class).putExtra("tourId", tourId));
         }
@@ -76,7 +78,7 @@ public class Infor_tour extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infor_tour);
         final TextView tourname = findViewById(R.id.tour_name);
-        ImageView backgound = findViewById(R.id.background);
+        ImageView background = findViewById(R.id.background);
         final TextView costs = findViewById(R.id.costs);
         final TextView people = findViewById(R.id.people);
         final CheckBox isPrivate = findViewById(R.id.is_private);

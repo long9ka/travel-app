@@ -43,7 +43,7 @@ public class HistoryStopPoint {
     private Integer serviceTypeId;
     @SerializedName("avatar")
     @Expose
-    private Object avatar;
+    private String avatar;
     @SerializedName("index")
     @Expose
     private Integer index;
@@ -144,11 +144,11 @@ public class HistoryStopPoint {
         this.serviceTypeId = serviceTypeId;
     }
 
-    public Object getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Object avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

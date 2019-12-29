@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         String total = sharedPreferences.getString("totalTour", "1000");
 
         Random rand = new Random();
-        String number = String.valueOf(rand.nextInt(Integer.parseInt(total)/50));
+        final String number = String.valueOf(rand.nextInt(Integer.parseInt(total)/50));
         UserStore userStore = new UserStore(root.getContext());
             Call<ResListTour> call = RetrofitClient.getUserService().getListTour(userStore.getUser().getAccessToken(), "50", number);
         call.enqueue(new Callback<ResListTour>() {
