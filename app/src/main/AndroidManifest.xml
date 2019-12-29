@@ -18,7 +18,10 @@
         android:theme="@style/ActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.followTour.TourFollow"></activity>
+        <activity android:name=".ui.followTour.TourFollow"
+            android:parentActivityName=".ui.history.TourInfor"
+            android:label="Follow Tour"
+            ></activity>
         <activity
             android:label="Stop points"
             android:name=".ui.ListSpCreateTourActivity"
@@ -39,7 +42,10 @@
             android:name=".ui.CommentListActivity"
             android:label="Comments"
             android:parentActivityName=".ui.home.Infor_tour" />
-        <activity android:name=".ui.followTour.sound" />
+        <activity android:name=".ui.followTour.sound"
+            android:parentActivityName=".ui.followTour.TourFollow"
+            android:label="Audio Record"
+            />
         <activity
             android:name=".ui.ReviewTourActivity"
             android:label="Review"
