@@ -25,6 +25,7 @@ import com.example.travelapp.api.model.response.ResPasswordRecovery;
 import com.example.travelapp.api.model.response.ResRegister;
 import com.example.travelapp.api.model.response.ResReviewList;
 import com.example.travelapp.api.model.response.ResSendVerifyCode;
+import com.example.travelapp.api.model.response.ResServiceDetail;
 import com.example.travelapp.api.model.response.ResSetStopPoints;
 import com.example.travelapp.api.model.response.ResSuggestStopPoint;
 import com.example.travelapp.api.model.response.ResUpdateTour;
@@ -100,4 +101,9 @@ public interface UserService {
     
     @GET("/tour/comment-list")
     Call<ResCommentList> getComments(@Header("Authorization")String string, @Query("tourId")String tourId, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
+    
+    @GET("/tour/get/service-detai")
+    Call<ResServiceDetail> getServiceDetail(@Header("Authorization")String string, @Query("serviceId")String serviceId);
+    
+    
 }

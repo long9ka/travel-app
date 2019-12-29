@@ -1,7 +1,9 @@
 package com.example.travelapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -12,7 +14,6 @@ import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
-import com.example.travelapp.ui.MembersAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,12 +36,12 @@ public class StopPointActivity extends AppCompatActivity {
 
         userStore = new UserStore(this);
         userService = RetrofitClient.getUserService();
-        String accessToken = userStore.getUser().getAccessToken();
-        String tourId = getIntent().getStringExtra("tourId");
+        final String accessToken = userStore.getUser().getAccessToken();
+        final String tourId = getIntent().getStringExtra("tourId");
         Call<ResHistoryStopPoints> call = userService.getHitoryStopPoint(accessToken, tourId);
         call.enqueue(new Callback<ResHistoryStopPoints>() {
             @Override
-            public void onResponse(Call<ResHistoryStopPoints> call, Response<ResHistoryStopPoints> response) {
+            public void onResponse(Call<ResHistoryStopPoints> call, final Response<ResHistoryStopPoints> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getStopPoints().isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Empty", Toast.LENGTH_SHORT).show();
@@ -49,6 +50,15 @@ public class StopPointActivity extends AppCompatActivity {
                         ListView listView = findViewById(R.id.list_item);
                         AdapterStopPoints adapter = new AdapterStopPoints(getApplicationContext(), R.layout.adapter_stop_points, response.body().getStopPoints());
                         listView.setAdapter(adapter);
+                        // click item
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                // start activity
+                                startActivity(new Intent(getApplicationContext(), DetailStopPointActivity.class)
+                                        .putExtra("Id", String.valueOf(response.body().getStopPoints().get(position).getServiceId())));
+                            }
+                        });
                     }
                 } else {
                     try {
