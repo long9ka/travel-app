@@ -46,10 +46,11 @@ public class TourFollow extends AppCompatActivity implements OnMapReadyCallback 
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
+        mMap=googleMap;
     }
 }

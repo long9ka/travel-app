@@ -157,12 +157,12 @@
         android:gravity="center"
         android:text="Edit tour"></Button>
         <Button
-            android:id="@+id/tourinfo_play"
+            android:id="@+id/tourinfo_follow"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:text="Audio"></Button>
+            android:text="Follow"></Button>
 
     </LinearLayout>
 

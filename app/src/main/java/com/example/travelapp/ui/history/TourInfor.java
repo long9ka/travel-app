@@ -25,6 +25,7 @@ import com.example.travelapp.api.model.response.ResUpdateTour;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
+import com.example.travelapp.ui.followTour.TourFollow;
 import com.example.travelapp.ui.followTour.sound;
 import com.google.gson.Gson;
 
@@ -34,7 +35,7 @@ import retrofit2.Response;
 
 public class TourInfor extends AppCompatActivity {
     ImageButton delete;
-    Button edit, stop, audio;
+    Button edit, stop, follow;
     TextView name, adult, child, minC, maxC;
     CheckBox is_private;
 
@@ -54,7 +55,7 @@ public class TourInfor extends AppCompatActivity {
         minC = findViewById(R.id.tourinfo_min_cost);
         maxC = findViewById(R.id.tourinfo_max_cost);
         edit= findViewById(R.id.tourinfo_edit);
-        audio=findViewById(R.id.tourinfo_play);
+        follow=findViewById(R.id.tourinfo_follow);
         is_private=findViewById(R.id.tourinfo_is_private);
 //        get Intern
         final String tourID = getIntent().getStringExtra("tourID");
@@ -117,11 +118,11 @@ public class TourInfor extends AppCompatActivity {
 
 
 
-        audio.setOnClickListener(new View.OnClickListener() {
+        follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent au=new Intent(getApplicationContext(), sound.class);
-                startActivity(au);
+                Intent fol=new Intent(getApplicationContext(), TourFollow.class);
+                startActivity(fol);
             }
         });
 
