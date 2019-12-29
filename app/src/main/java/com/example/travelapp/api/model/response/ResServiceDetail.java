@@ -12,7 +12,7 @@ public class ResServiceDetail {
     private String name;
     @SerializedName("address")
     @Expose
-    private Object address;
+    private String address;
     @SerializedName("provinceId")
     @Expose
     private Integer provinceId;
@@ -60,11 +60,11 @@ public class ResServiceDetail {
         this.name = name;
     }
 
-    public Object getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Object address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
