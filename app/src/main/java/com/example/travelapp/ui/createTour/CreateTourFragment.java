@@ -49,7 +49,7 @@ public class CreateTourFragment extends Fragment implements DatePickerDialog.OnD
         final View root = inflater.inflate(R.layout.fragment_create_tour, container, false);
 
         //test
-        startActivity(new Intent(root.getContext(), MapsActivity.class));
+        //startActivity(new Intent(root.getContext(), MapsActivity.class));
 
         final EditText tourNameEditText = root.findViewById(R.id.tour_name);
         final EditText minCostEditText = root.findViewById(R.id.min_cost);
@@ -123,8 +123,7 @@ public class CreateTourFragment extends Fragment implements DatePickerDialog.OnD
                         if (response.isSuccessful()) {
                             Intent intent = new Intent(root.getContext(), MapsActivity.class);
                             intent.putExtra("id", response.body().getId());
-                            Log.i("ahihi", userStore.getUser().getAccessToken());
-                            Log.i("ahihi", response.body().getId());
+                            Log.i("xxx id ne luon", response.body().getId());
                             startActivity(intent);
                         } else {
                             try {
