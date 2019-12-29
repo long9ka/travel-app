@@ -47,6 +47,7 @@ public class HistoryFragment extends Fragment {
         UserService userService = RetrofitClient.getUserService();
         Call<ResHistoryTourUser> call = userService
                 .getHistoryTourUser(userStore.getUser().getAccessToken(), "1", "1000");
+        Log.d("message",userStore.getUser().getAccessToken());
         call.enqueue(new Callback<ResHistoryTourUser>() {
             @Override
             public void onResponse(Call<ResHistoryTourUser> call, final Response<ResHistoryTourUser> response) {

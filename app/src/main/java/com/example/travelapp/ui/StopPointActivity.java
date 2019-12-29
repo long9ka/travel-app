@@ -59,6 +59,7 @@ public class StopPointActivity extends AppCompatActivity {
                                         .putExtra("Id", String.valueOf(response.body().getStopPoints().get(position).getServiceId())));
                             }
                         });
+
                     }
                 } else {
                     try {
