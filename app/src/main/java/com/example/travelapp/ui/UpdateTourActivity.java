@@ -44,7 +44,7 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
     private String startDate, endDate, adults = "10", child = "10", isPrivate = "false";
     private int clickDatePicker;
     Button btnSubmit;
-    
+
     private static String getDate(long milliSeconds) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Calendar calendar = Calendar.getInstance();
@@ -59,7 +59,7 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
         String tourId = getIntent().getStringExtra("tourId");
         final UserStore userStore = new UserStore(this);
         final UserService userService = RetrofitClient.getUserService();
-        
+
         final EditText tourNameEditText = findViewById(R.id.tour_name);
         final EditText minCostEditText = findViewById(R.id.min_cost);
         final EditText maxCostEditText = findViewById(R.id.max_cost);
@@ -144,22 +144,22 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
                                 Toast.makeText(getApplicationContext(),"Fill out tour's name",Toast.LENGTH_LONG).show();
                             }else {
                                 final ReqUpdateTour reqUpdateTour=new ReqUpdateTour(
-                                    updateId,
-                                    updateName,
-                                    updateStartDate,
-                                    updateEndDate,
-                                    updateAdults,
-                                    updateChilds,
-                                    updateMincost,
-                                    updateMaxcost,
+                                        updateId,
+                                        updateName,
+                                        updateStartDate,
+                                        updateEndDate,
+                                        updateAdults,
+                                        updateChilds,
+                                        updateMincost,
+                                        updateMaxcost,
                                         updateIsprivate,
-                                    updateStatus
+                                        updateStatus
 
                                 );
                                 Log.d("info",updateName);
                                 Log.d("info",updateName);
                                 Log.d("info",updateName);
-                            update(reqUpdateTour,res,userService,userStore);
+                                update(reqUpdateTour,res,userService,userStore);
                             }
                         }
                     });
@@ -191,7 +191,7 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
             @Override
             public void onResponse(Call<ResUpdateTour> call, Response<ResUpdateTour> response) {
                 if(response.code() ==200)
-                Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
                 else {
                     Toast.makeText(getApplicationContext(), ""+response.code(), Toast.LENGTH_SHORT).show();
                 }
