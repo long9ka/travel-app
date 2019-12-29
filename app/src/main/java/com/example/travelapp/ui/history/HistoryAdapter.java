@@ -2,42 +2,21 @@ package com.example.travelapp.ui.history;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.travelapp.R;
-import com.example.travelapp.UpdateTourActivity;
 import com.example.travelapp.api.model.request.Tour;
-import com.example.travelapp.api.model.response.HistoryStopPoint;
-import com.example.travelapp.api.model.response.ResHistoryStopPoints;
-import com.example.travelapp.api.model.response.ResHistoryTourUser;
-import com.example.travelapp.api.service.RetrofitClient;
-import com.example.travelapp.api.service.UserService;
-import com.example.travelapp.store.UserStore;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class HistoryAdapter extends ArrayAdapter<Tour> {
     private Context context;

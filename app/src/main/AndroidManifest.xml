@@ -58,7 +58,7 @@
             android:name=".ui.history.TourInfor"
             android:parentActivityName=".ui.history.TourInfor" /> <!-- Update tour -->
         <activity
-            android:name=".UpdateTourActivity"
+            android:name=".ui.UpdateTourActivity"
             android:label="Update Tour" /> <!-- Stop points -->
         <activity
             android:name=".ui.MapsActivity"

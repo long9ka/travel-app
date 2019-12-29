@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,17 +15,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelapp.R;
-import com.example.travelapp.UpdateTourActivity;
+import com.example.travelapp.ui.UpdateTourActivity;
 import com.example.travelapp.api.model.request.ReqUpdateTour;
-import com.example.travelapp.api.model.request.UpdateTour;
-import com.example.travelapp.api.model.response.HistoryStopPoint;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.model.response.ResUpdateTour;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
 import com.example.travelapp.ui.followTour.TourFollow;
-import com.example.travelapp.ui.followTour.sound;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
