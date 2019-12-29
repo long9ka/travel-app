@@ -12,7 +12,7 @@ public class CommentList {
     private String name;
     @SerializedName("avatar")
     @Expose
-    private Object avatar;
+    private String avatar;
     @SerializedName("comment")
     @Expose
     private String comment;
@@ -36,11 +36,11 @@ public class CommentList {
         this.name = name;
     }
 
-    public Object getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Object avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

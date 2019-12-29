@@ -43,6 +43,7 @@ public class CommentListActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getCommentList().isEmpty()) {
                         Toast.makeText(getApplicationContext(), "empty", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         ListView listView = findViewById(R.id.list_item);
                         CommentAdapter adapter = new CommentAdapter(getApplicationContext(), R.layout.comment_list_adapter, response.body().getCommentList());

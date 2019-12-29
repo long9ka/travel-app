@@ -3,35 +3,31 @@ package com.example.travelapp.api.model.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class HistoryStopPoint {
-
+public class ResServiceDetail {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("serviceId")
-    @Expose
-    private Integer serviceId;
-    @SerializedName("address")
-    @Expose
-    private String address;
-    @SerializedName("provinceId")
-    @Expose
-    private Integer provinceId;
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("address")
+    @Expose
+    private Object address;
+    @SerializedName("provinceId")
+    @Expose
+    private Integer provinceId;
+    @SerializedName("contact")
+    @Expose
+    private String contact;
+    @SerializedName("selfStarRatings")
+    @Expose
+    private Object selfStarRatings;
     @SerializedName("lat")
     @Expose
     private String lat;
     @SerializedName("long")
     @Expose
     private String _long;
-    @SerializedName("arrivalAt")
-    @Expose
-    private String arrivalAt;
-    @SerializedName("leaveAt")
-    @Expose
-    private String leaveAt;
     @SerializedName("minCost")
     @Expose
     private String minCost;
@@ -44,9 +40,9 @@ public class HistoryStopPoint {
     @SerializedName("avatar")
     @Expose
     private String avatar;
-    @SerializedName("index")
+    @SerializedName("landingTimes")
     @Expose
-    private Integer index;
+    private Object landingTimes;
 
     public Integer getId() {
         return id;
@@ -56,19 +52,19 @@ public class HistoryStopPoint {
         this.id = id;
     }
 
-    public Integer getServiceId() {
-        return serviceId;
+    public String getName() {
+        return name;
     }
 
-    public void setServiceId(Integer serviceId) {
-        this.serviceId = serviceId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAddress() {
+    public Object getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Object address) {
         this.address = address;
     }
 
@@ -80,12 +76,20 @@ public class HistoryStopPoint {
         this.provinceId = provinceId;
     }
 
-    public String getName() {
-        return name;
+    public String getContact() {
+        return contact;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public Object getSelfStarRatings() {
+        return selfStarRatings;
+    }
+
+    public void setSelfStarRatings(Object selfStarRatings) {
+        this.selfStarRatings = selfStarRatings;
     }
 
     public String getLat() {
@@ -102,22 +106,6 @@ public class HistoryStopPoint {
 
     public void setLong(String _long) {
         this._long = _long;
-    }
-
-    public String getArrivalAt() {
-        return arrivalAt;
-    }
-
-    public void setArrivalAt(String arrivalAt) {
-        this.arrivalAt = arrivalAt;
-    }
-
-    public String getLeaveAt() {
-        return leaveAt;
-    }
-
-    public void setLeaveAt(String leaveAt) {
-        this.leaveAt = leaveAt;
     }
 
     public String getMinCost() {
@@ -152,12 +140,11 @@ public class HistoryStopPoint {
         this.avatar = avatar;
     }
 
-    public Integer getIndex() {
-        return index;
+    public Object getLandingTimes() {
+        return landingTimes;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setLandingTimes(Object landingTimes) {
+        this.landingTimes = landingTimes;
     }
-
 }

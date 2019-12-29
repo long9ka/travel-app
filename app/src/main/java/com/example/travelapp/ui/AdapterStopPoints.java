@@ -2,7 +2,6 @@ package com.example.travelapp.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,41 +14,41 @@ import androidx.annotation.Nullable;
 
 import com.example.travelapp.R;
 import com.example.travelapp.api.model.response.CommentList;
-import com.example.travelapp.api.model.response.Member;
+import com.example.travelapp.api.model.response.HistoryStopPoint;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MembersAdapter extends ArrayAdapter<Member> {
-
+public class AdapterStopPoints extends ArrayAdapter<HistoryStopPoint> {
     private Context context;
     private int resource;
-    private List<Member> objects;
+    private List<HistoryStopPoint> objects;
 
     private class ViewHolder {
         TextView name;
-        TextView phone;
-        TextView isHost;
+        TextView serviceIdType;
+        TextView costs;
         ImageView avatar;
     }
     
-    MembersAdapter(@NonNull Context context, int resource, @NonNull List<Member> objects) {
+    AdapterStopPoints(@NonNull Context context, int resource, @NonNull List<HistoryStopPoint> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
         this.objects = objects;
     }
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint({"ViewHolder", "SetTextI18n"})
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(resource, parent, false);
+        
         ViewHolder viewHolder = new ViewHolder();
-        viewHolder.name = convertView.findViewById(R.id.name);
-        viewHolder.phone = convertView.findViewById(R.id.phone);
-        viewHolder.isHost = convertView.findViewById(R.id.is_host);
         viewHolder.avatar = convertView.findViewById(R.id.avatar);
+        viewHolder.name = convertView.findViewById(R.id.name);
+        viewHolder.serviceIdType = convertView.findViewById(R.id.service_type);
+        viewHolder.costs = convertView.findViewById(R.id.cost);
 
         if (objects.get(position).getAvatar() != null) {
             Picasso.get().load(objects.get(position).getAvatar()).into(viewHolder.avatar);
@@ -57,11 +56,22 @@ public class MembersAdapter extends ArrayAdapter<Member> {
         if (objects.get(position).getName() != null) {
             viewHolder.name.setText(objects.get(position).getName());
         }
-        if (objects.get(position).getPhone() != null) {
-            viewHolder.phone.setText(objects.get(position).getPhone());
+        if (objects.get(position).getMinCost() != null || objects.get(position).getMaxCost() != null) {
+            viewHolder.costs.setText("$: " + objects.get(position).getMinCost() + " - " + objects.get(position).getMaxCost());
         }
-        if (!objects.get(position).getIsHost()) {
-            viewHolder.isHost.setVisibility(View.INVISIBLE);
+        if (objects.get(position).getServiceTypeId() != null) {
+            if (objects.get(position).getServiceTypeId() == 1) {
+                viewHolder.serviceIdType.setText("Restaurant");
+            }
+            if (objects.get(position).getServiceTypeId() == 2) {
+                viewHolder.serviceIdType.setText("Hotel");
+            }
+            if (objects.get(position).getServiceTypeId() == 3) {
+                viewHolder.serviceIdType.setText("Station");
+            }
+            if (objects.get(position).getServiceTypeId() == 4) {
+                viewHolder.serviceIdType.setText("other");
+            }
         }
         return convertView;
     }

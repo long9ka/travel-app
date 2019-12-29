@@ -1,8 +1,13 @@
 package com.example.travelapp.ui;
 
 
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +51,8 @@ public class ReviewTourActivity extends AppCompatActivity {
             public void onResponse(Call<ResReviewList> call, Response<ResReviewList> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getReviewList().size() == 0) {
-                        Toast.makeText(getApplicationContext(), "Review list is empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Empty", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                     ListView listView = findViewById(R.id.list_item);
                     // set adapter

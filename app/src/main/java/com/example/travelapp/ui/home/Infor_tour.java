@@ -28,6 +28,7 @@ import com.example.travelapp.api.model.response.ResSetStopPoints;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
+import com.example.travelapp.ui.StopPointActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +53,8 @@ public class Infor_tour extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // test tourId
+        tourId = "22";
         if (item.getItemId() == R.id.review) {
             startActivity(new Intent(getApplicationContext(), ReviewTourActivity.class).putExtra("tourId", tourId));
         }
@@ -62,7 +65,7 @@ public class Infor_tour extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), MembersActivity.class).putExtra("tourId", tourId));
         }
         if (item.getItemId() == R.id.stop_points) {
-            Log.i("ahihi", "click stop points");
+            startActivity(new Intent(getApplicationContext(), StopPointActivity.class).putExtra("tourId", tourId));
         }
         if (item.getItemId() == R.id.comments_stop_points) {
             Log.i("ahihi", "click comments stop points");
@@ -75,7 +78,7 @@ public class Infor_tour extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infor_tour);
         final TextView tourname = findViewById(R.id.tour_name);
-        ImageView backgound = findViewById(R.id.background);
+        ImageView background = findViewById(R.id.background);
         final TextView costs = findViewById(R.id.costs);
         final TextView people = findViewById(R.id.people);
         final CheckBox isPrivate = findViewById(R.id.is_private);
