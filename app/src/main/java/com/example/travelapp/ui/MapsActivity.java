@@ -4,9 +4,12 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,11 +49,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -110,35 +116,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
         }
         if (item.getItemId() == R.id.list) {
-            // TODO: here
-            UserStore userStore = new UserStore(getApplicationContext());
-            UserService userService = RetrofitClient.getUserService(); 
-            Call<ResSetStopPoints> call = userService.setStopPoints(
-                    userStore.getUser().getAccessToken(),
-                    new ReqSetStopPoints(id, stopPoints)
-            );
-            call.enqueue(new Callback<ResSetStopPoints>() {
-                @Override
-                public void onResponse(Call<ResSetStopPoints> call, Response<ResSetStopPoints> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Add stop points successful", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                            String msg = jsonObject.getJSONArray("message").getJSONObject(0).get("msg").toString();
-                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                        } catch (JSONException | IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResSetStopPoints> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Add stop points failed", Toast.LENGTH_LONG).show();
-                }
-            });
+            SharedPreferences sharedPreferences = getSharedPreferences("list", MODE_PRIVATE);
+            Gson gson = new Gson();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("list", gson.toJson(stopPoints)).apply();
+            
+            startActivity(new Intent(getApplicationContext(), ListSpCreateTourActivity.class).putExtra("id", id));
+            
         }
         return super.onOptionsItemSelected(item);
     }
@@ -289,16 +273,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         showDatePicker();
                     }
                 });
-                /*
-                Spinner spinner = view.findViewById(R.id.service_type);
-
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter
-                        .createFromResource(getApplication(), R.array.type, android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(adapter);
-                spinner
-
-                 */
+                
                 final RadioGroup radioGroup = view.findViewById(R.id.service_type);
 
                 new AlertDialog.Builder(MapsActivity.this)

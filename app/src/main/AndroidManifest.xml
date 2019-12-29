@@ -20,6 +20,10 @@
         tools:targetApi="m">
         <activity android:name=".ui.followTour.TourFollow"></activity>
         <activity
+            android:label="Stop points"
+            android:name=".ui.ListSpCreateTourActivity"
+            android:parentActivityName=".ui.MapsActivity"/>
+        <activity
             android:name=".ui.DetailStopPointActivity"
             android:label="Detail"
             android:parentActivityName=".ui.StopPointActivity" />

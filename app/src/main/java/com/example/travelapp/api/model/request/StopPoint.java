@@ -40,4 +40,68 @@ public class StopPoint {
         this.minCost = minCost;
         this.maxCost = maxCost;
     }
+
+    public String getArrivalAt() {
+        return arrivalAt;
+    }
+
+    public void setArrivalAt(String arrivalAt) {
+        this.arrivalAt = arrivalAt;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLeaveAt() {
+        return leaveAt;
+    }
+
+    public void setLeaveAt(String leaveAt) {
+        this.leaveAt = leaveAt;
+    }
+
+    public String get_long() {
+        return _long;
+    }
+
+    public void set_long(String _long) {
+        this._long = _long;
+    }
+
+    public String getMinCost() {
+        return minCost;
+    }
+
+    public void setMinCost(String minCost) {
+        this.minCost = minCost;
+    }
+
+    public String getMaxCost() {
+        return maxCost;
+    }
+
+    public void setMaxCost(String maxCost) {
+        this.maxCost = maxCost;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getServiceTypeId() {
+        return serviceTypeId;
+    }
+
+    public void setServiceTypeId(String serviceTypeId) {
+        this.serviceTypeId = serviceTypeId;
+    }
 }
