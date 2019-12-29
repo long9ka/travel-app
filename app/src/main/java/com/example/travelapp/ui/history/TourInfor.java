@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travelapp.R;
+import com.example.travelapp.ui.StopPointActivity;
 import com.example.travelapp.ui.UpdateTourActivity;
 import com.example.travelapp.api.model.request.ReqUpdateTour;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
@@ -119,6 +120,15 @@ public class TourInfor extends AppCompatActivity {
             public void onClick(View v) {
                 Intent fol=new Intent(getApplicationContext(), TourFollow.class);
                 startActivity(fol);
+            }
+        });
+
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent stop=new Intent(getApplicationContext(),ListStop.class);
+                stop.putExtra("tourId",tourID);
+                startActivity(stop);
             }
         });
 

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
@@ -18,14 +19,16 @@
         android:theme="@style/ActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.followTour.TourFollow"
-            android:parentActivityName=".ui.history.TourInfor"
-            android:label="Follow Tour"
-            ></activity>
+        <activity android:name=".ui.history.StopPoint"></activity>
+        <activity android:name=".ui.history.ListStop" />
         <activity
-            android:label="Stop points"
+            android:name=".ui.followTour.TourFollow"
+            android:label="Follow Tour"
+            android:parentActivityName=".ui.history.TourInfor" />
+        <activity
             android:name=".ui.ListSpCreateTourActivity"
-            android:parentActivityName=".ui.MapsActivity"/>
+            android:label="Stop points"
+            android:parentActivityName=".ui.MapsActivity" />
         <activity
             android:name=".ui.DetailStopPointActivity"
             android:label="Detail"
@@ -42,10 +45,10 @@
             android:name=".ui.CommentListActivity"
             android:label="Comments"
             android:parentActivityName=".ui.home.Infor_tour" />
-        <activity android:name=".ui.followTour.sound"
-            android:parentActivityName=".ui.followTour.TourFollow"
+        <activity
+            android:name=".ui.followTour.sound"
             android:label="Audio Record"
-            />
+            android:parentActivityName=".ui.followTour.TourFollow" />
         <activity
             android:name=".ui.ReviewTourActivity"
             android:label="Review"
