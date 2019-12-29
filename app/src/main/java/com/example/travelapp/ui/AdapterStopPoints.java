@@ -31,7 +31,7 @@ public class AdapterStopPoints extends ArrayAdapter<HistoryStopPoint> {
         ImageView avatar;
     }
     
-    AdapterStopPoints(@NonNull Context context, int resource, @NonNull List<HistoryStopPoint> objects) {
+    public AdapterStopPoints(@NonNull Context context, int resource, @NonNull List<HistoryStopPoint> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -45,10 +45,10 @@ public class AdapterStopPoints extends ArrayAdapter<HistoryStopPoint> {
         convertView = LayoutInflater.from(context).inflate(resource, parent, false);
         
         ViewHolder viewHolder = new ViewHolder();
-        viewHolder.avatar = convertView.findViewById(R.id.avatar);
-        viewHolder.name = convertView.findViewById(R.id.name);
-        viewHolder.serviceIdType = convertView.findViewById(R.id.service_type);
-        viewHolder.costs = convertView.findViewById(R.id.cost);
+        viewHolder.avatar = convertView.findViewById(R.id.avatarh);
+        viewHolder.name = convertView.findViewById(R.id.nameh);
+        viewHolder.serviceIdType = convertView.findViewById(R.id.service_typeh);
+        viewHolder.costs = convertView.findViewById(R.id.costh);
 
         if (objects.get(position).getAvatar() != null) {
             Picasso.get().load(objects.get(position).getAvatar()).into(viewHolder.avatar);
