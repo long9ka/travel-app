@@ -52,5 +52,6 @@ public class TourFollow extends AppCompatActivity implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap=googleMap;
+
     }
 }
