@@ -23,7 +23,7 @@ import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
 import com.google.gson.Gson;
-import com.ygaps.travelapp.R;
+import com.example.travelapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
