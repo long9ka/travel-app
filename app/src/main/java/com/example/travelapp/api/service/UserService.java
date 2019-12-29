@@ -15,6 +15,7 @@ import com.example.travelapp.api.model.request.ReqEditUserInfo;
 import com.example.travelapp.api.model.request.Tour;
 import com.example.travelapp.api.model.request.UpdateTour;
 import com.example.travelapp.api.model.response.ResCommentList;
+import com.example.travelapp.api.model.response.ResFbService;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
 import com.example.travelapp.api.model.response.ResHistoryTourUser;
 import com.example.travelapp.api.model.response.ResCreateTour;
@@ -102,8 +103,10 @@ public interface UserService {
     @GET("/tour/comment-list")
     Call<ResCommentList> getComments(@Header("Authorization")String string, @Query("tourId")String tourId, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
     
-    @GET("/tour/get/service-detai")
+    @GET("/tour/get/service-detail")
     Call<ResServiceDetail> getServiceDetail(@Header("Authorization")String string, @Query("serviceId")String serviceId);
-    
-    
+
+    @GET("/tour/get/feedback-service")
+    Call<ResFbService> getFbService(@Header("Authorization")String string, @Query("serviceId")String ServiceId, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
+
 }

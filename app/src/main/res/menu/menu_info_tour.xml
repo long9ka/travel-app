@@ -18,8 +18,4 @@
         android:title="Stop points"
         android:id="@+id/stop_points"
         tools:ignore="HardcodedText" />
-    <item
-        android:title="Comments stop points"
-        android:id="@+id/comments_stop_points"
-        tools:ignore="HardcodedText" />
 </menu>

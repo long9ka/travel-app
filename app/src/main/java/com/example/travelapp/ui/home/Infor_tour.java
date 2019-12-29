@@ -67,9 +67,6 @@ public class Infor_tour extends AppCompatActivity {
         if (item.getItemId() == R.id.stop_points) {
             startActivity(new Intent(getApplicationContext(), StopPointActivity.class).putExtra("tourId", tourId));
         }
-        if (item.getItemId() == R.id.comments_stop_points) {
-            Log.i("ahihi", "click comments stop points");
-        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -29,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,7 +52,13 @@ public class HistoryAdapter extends ArrayAdapter<Tour> {
         TextView isHost;
         TextView isKicked;
     }
-    
+    private static String getDate(Long milliSeconds) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
+    }
+
     HistoryAdapter(@NonNull Context context, int resource, @NonNull List<Tour> objects) {
         super(context, resource, objects);
         this.context = context;
@@ -75,7 +83,7 @@ public class HistoryAdapter extends ArrayAdapter<Tour> {
         
         // set view
         viewHolder.tourName.setText("Tour name: " + objects.get(position).getName());
-        viewHolder.date.setText("Date: " + objects.get(position).getStartDate() + " - " + objects.get(position).getEndDate());
+        viewHolder.date.setText("Date: " +objects.get(position).getStartDate() + " - " +objects.get(position).getEndDate());
         viewHolder.cost.setText("Costs: " + objects.get(position).getMinCost() + " - " + objects.get(position).getMaxCost());
         viewHolder.people.setText("Adults: " + objects.get(position).getAdults() + " Child: " + objects.get(position).getChilds());
         viewHolder.isHost.setText("Is host: " + objects.get(position).getIsHost());

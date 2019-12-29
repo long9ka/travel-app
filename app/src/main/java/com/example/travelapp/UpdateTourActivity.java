@@ -1,7 +1,5 @@
 package com.example.travelapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -16,15 +14,16 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.travelapp.api.model.request.ReqUpdateTour;
-import com.example.travelapp.api.model.response.HistoryStopPoint;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
-import com.example.travelapp.api.model.response.ResHistoryTourUser;
 import com.example.travelapp.api.model.response.ResUpdateTour;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
 import com.google.gson.Gson;
+import com.example.travelapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +36,6 @@ import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class UpdateTourActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, NumberPicker.OnValueChangeListener {
 

@@ -5,45 +5,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.DetailStopPointActivity">
 
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/detail"
         android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:text="Detail Stop point"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14pt"/>
+
         <TextView
             android:id="@+id/name"
             android:text="#unkown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12pt"
             tools:ignore="HardcodedText" />
         <TextView
             android:id="@+id/address"
             android:text="#Address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12pt"
             tools:ignore="HardcodedText" />
         <TextView
             android:id="@+id/contact"
             android:text="#Contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12pt"
             tools:ignore="HardcodedText" />
         <TextView
             android:id="@+id/cost"
             android:text="#$: 1000 - 2000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="12pt"
             tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/titleComment"
+            android:layout_width="match_parent"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14pt"
+            android:layout_height="wrap_content"
+            android:text="Comment List" />
     </LinearLayout>
-
     <ListView
         android:id="@+id/list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/detail" />
-    
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
