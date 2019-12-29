@@ -2,6 +2,7 @@ package com.example.travelapp.ui;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,12 @@ public class ListSpCreateTourActivity extends AppCompatActivity {
     
     private List<StopPoint> stopPoint;
     private String id;
+    
+    private ListSpCreateTourAdapter adapter;
+    private SharedPreferences.Editor editor;
+    private Gson gson;
+    private Type type;
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,10 +60,11 @@ public class ListSpCreateTourActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.add_stop_point) {
+            /*
             SharedPreferences sharedPreferences = getSharedPreferences("list", MODE_PRIVATE);
-            Gson gson = new Gson();
+            gson = new Gson();
             String json = sharedPreferences.getString("list", null);
-            Type type =  new TypeToken<List<StopPoint>>(){}.getType();
+            type =  new TypeToken<List<StopPoint>>(){}.getType();
             stopPoint = gson.fromJson(json, type);
             if (stopPoint == null) {
                 stopPoint = new ArrayList<>();
@@ -68,12 +76,13 @@ public class ListSpCreateTourActivity extends AppCompatActivity {
                 Log.i("xxx", stopPoint.get(i).getMinCost());
             }
             
+            
+             */
             id = getIntent().getStringExtra("id");
             Log.i("xxx id ne", id);
             
             UserStore userStore = new UserStore(getApplicationContext());
             UserService userService = RetrofitClient.getUserService();
-            
             Call<ResSetStopPoints> call = userService.setStopPoints(
                     userStore.getUser().getAccessToken(),
                     new ReqSetStopPoints(id, stopPoint)
@@ -107,29 +116,35 @@ public class ListSpCreateTourActivity extends AppCompatActivity {
         id = getIntent().getStringExtra("Id");
 
         SharedPreferences sharedPreferences = getSharedPreferences("list", MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-        final Gson gson = new Gson();
+        editor = sharedPreferences.edit();
+        gson = new Gson();
         String json = sharedPreferences.getString("list", null);
         Type type =  new TypeToken<List<StopPoint>>(){}.getType();
         stopPoint = gson.fromJson(json, type);
         if (stopPoint == null) {
             stopPoint = new ArrayList<>();
         }
+        
+        Log.i("xxx", String.valueOf(stopPoint.size()));
+        
         final ListView listView = findViewById(R.id.list_item);
-        final ListSpCreateTourAdapter adapter = new ListSpCreateTourAdapter(this, R.layout.list_sp_createtour_adapter, stopPoint);
+        adapter = new ListSpCreateTourAdapter(this, R.layout.list_sp_createtour_adapter, stopPoint);
         listView.setAdapter(adapter);
+
+        //final View viewModal = getLayoutInflater().inflate(R.layout.popup_listsp_create_tour, null);
         
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                final int xPos = position;
                 new AlertDialog.Builder(ListSpCreateTourActivity.this)
-                        .setTitle("Delete " + stopPoint.get(position).getName())
+                        .setTitle("Delete" + stopPoint.get(xPos).getName())
                         .setMessage("Do you want to delete it?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                stopPoint.remove(position);
-                                editor.putString("list", gson.toJson(stopPoint)).apply();
+                                stopPoint.remove(xPos);
+                                //editor.putString("list", gson.toJson(stopPoint)).apply();
                                 adapter.notifyDataSetChanged();
                             }
                         })
@@ -139,4 +154,5 @@ public class ListSpCreateTourActivity extends AppCompatActivity {
             }
         });
     }
+    
 }
