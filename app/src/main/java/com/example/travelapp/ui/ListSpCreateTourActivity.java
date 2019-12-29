@@ -133,10 +133,24 @@ public class ListSpCreateTourActivity extends AppCompatActivity {
 
         //final View viewModal = getLayoutInflater().inflate(R.layout.popup_listsp_create_tour, null);
         
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(ListSpCreateTourActivity.this);
+        
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                final int xPos = position;
+                dialog.setTitle("Delete" + stopPoint.get(position).getName())
+                        .setMessage("Do you want to delete it?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                stopPoint.remove(position);
+                                //editor.putString("list", gson.toJson(stopPoint)).apply();
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                /*
                 new AlertDialog.Builder(ListSpCreateTourActivity.this)
                         .setTitle("Delete" + stopPoint.get(xPos).getName())
                         .setMessage("Do you want to delete it?")
@@ -150,6 +164,8 @@ public class ListSpCreateTourActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("No", null)
                         .show();
+                        
+                 */
                 return false;
             }
         });

@@ -108,5 +108,8 @@ public interface UserService {
 
     @GET("/tour/get/feedback-service")
     Call<ResFbService> getFbService(@Header("Authorization")String string, @Query("serviceId")String ServiceId, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);
+    
+    @GET("/tour/remove-stop-point")
+    Call<ResSetStopPoints> removeStopPoint(@Header("Authorization")String string, @Query("stopPointId")String s);
 
 }

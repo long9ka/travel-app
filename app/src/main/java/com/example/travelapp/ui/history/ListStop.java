@@ -2,8 +2,11 @@ package com.example.travelapp.ui.history;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.travelapp.R;
 import com.example.travelapp.api.model.response.ResHistoryStopPoints;
+import com.example.travelapp.api.model.response.ResSetStopPoints;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
@@ -102,28 +106,55 @@ public class ListStop extends AppCompatActivity {
                         finish();
                     } else {
                         ListView listView = findViewById(R.id.lvHistoryStop);
-                        AdapterStopPoints adapter = new AdapterStopPoints(getApplicationContext(), R.layout.adapter_historystop, response.body().getStopPoints());
+                        final AdapterStopPoints adapter = new AdapterStopPoints(getApplicationContext(), R.layout.adapter_historystop, response.body().getStopPoints());
                         listView.setAdapter(adapter);
                         // click item
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                                 // start activity
+                                /*
                                 startActivity(new Intent(getApplicationContext(), StopPoint.class)
                                         .putExtra("Id", String.valueOf(response.body().getStopPoints().get(position).getServiceId())));
+                                        
+                                 */
+                                
+                                new AlertDialog.Builder(ListStop.this)
+                                        .setTitle("Delete")
+                                        .setMessage("Delete it ?")
+                                        .setNegativeButton("No", null)
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // gui api xoa
+                                                Call<ResSetStopPoints> call1 = userService.removeStopPoint(userStore.getUser().getAccessToken(), String.valueOf(response.body().getStopPoints().get(position).getId()));
+                                                response.body().getStopPoints().remove(position);
+                                                adapter.notifyDataSetChanged();
+                                                call1.enqueue(new Callback<ResSetStopPoints>() {
+                                                    @Override
+                                                    public void onResponse(Call<ResSetStopPoints> call, Response<ResSetStopPoints> response) {
+                                                        if (response.isSuccessful()) {
+                                                            Toast.makeText(getApplicationContext(), "Remove Stop point successful", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            try {
+                                                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                                                Toast.makeText(getApplicationContext(), jsonObject.get("message").toString(), Toast.LENGTH_LONG).show();
+                                                            } catch (JSONException | IOException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<ResSetStopPoints> call, Throwable t) {
+                                                        Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                            }
+                                        })
+                                        .show();
                             }
                         });
-                        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                            @Override
-                            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-
-                                return false;
-                            };
-                        });
-
                     }
                 } else {
                     try {
