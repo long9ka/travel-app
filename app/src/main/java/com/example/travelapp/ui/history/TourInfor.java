@@ -26,6 +26,7 @@ import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
 import com.example.travelapp.ui.followTour.sound;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -135,22 +136,23 @@ public class TourInfor extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ReqUpdateTour reqUpdateTour=new ReqUpdateTour(
-                        res.getId().toString(),
+                        res.getId(),
                         res.getName(),
-                        res.getStartDate(),
-                        res.getEndDate(),
-                        res.getAdults().toString(),
-                        res.getChilds().toString(),
-                        res.getMinCost(),
-                        res.getMaxCost(),
-                        "-1",
-                        res.getIsPrivate().toString()
+                        1232312323,
+                        1232132312,
+                        res.getAdults(),
+                        res.getChilds(),
+                        Integer.parseInt(res.getMinCost()),
+                        Integer.parseInt(res.getMaxCost()),
+                        res.getIsPrivate(),
+                        -1
                 );
-                Call<ResUpdateTour> call=userService.sendData(userStore.getUser().getUserId(),reqUpdateTour);
+                Call<ResUpdateTour> call=userService.sendData(userStore.getUser().getAccessToken(),reqUpdateTour);
+                Log.d("TTTTS", "update: " + new Gson().toJson(reqUpdateTour));
                 call.enqueue(new Callback<ResUpdateTour>() {
                     @Override
                     public void onResponse(Call<ResUpdateTour> call, Response<ResUpdateTour> response) {
-                        Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"success"+String.valueOf(response.code()),Toast.LENGTH_LONG).show();
                     }
 
                     @Override

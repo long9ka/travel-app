@@ -24,6 +24,7 @@ import com.example.travelapp.api.model.response.ResUpdateTour;
 import com.example.travelapp.api.service.RetrofitClient;
 import com.example.travelapp.api.service.UserService;
 import com.example.travelapp.store.UserStore;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +75,6 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
 
         String token = userStore.getUser().getAccessToken();
         Call<ResHistoryStopPoints> call = userService.getHitoryStopPoint(token, tourId);
-
         call.enqueue(new Callback<ResHistoryStopPoints>() {
             @Override
             public void onResponse(Call<ResHistoryStopPoints> call, Response<ResHistoryStopPoints> response) {
@@ -82,8 +82,8 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
                     tourNameEditText.setText(response.body().getName());
                     minCostEditText.setText(response.body().getMinCost());
                     maxCostEditText.setText(response.body().getMaxCost());
-                    startDateTextView.setText(getDate(Long.parseLong(response.body().getStartDate())));
-                    endtDateTextView.setText(getDate(Long.parseLong(response.body().getEndDate())));
+                    startDateTextView.setText("abc");
+                    endtDateTextView.setText("xyz");
                     isPrivateCheckBox.setChecked(response.body().getIsPrivate());
                     isPrivateCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
@@ -127,35 +127,43 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
                     btnSubmit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String updateId=res.getId().toString();
+                            int updateId=res.getId();
                             String updateName=tourNameEditText.getText().toString();
-                            String updateStartDate="";
-                            String updateEndDate="";
+                            long updateStartDate=1232312323;
+                            long updateEndDate=1232312323;
                             int updateAdults=adultsPicker.getValue();
                             int updateChilds=childPicker.getValue();
-                            String updateMincost=minCostEditText.getText().toString();
-                            String updateMaxcost=maxCostEditText.getText().toString();
-                            String updateStatus=res.getStatus().toString();
-                            String updateIsprivate;
+                            int updateMincost=Integer.parseInt(minCostEditText.getText().toString());
+                            int updateMaxcost=Integer.parseInt(maxCostEditText.getText().toString());
+                            int updateStatus=res.getStatus();
+                            boolean updateIsprivate;
                             if(isPrivateCheckBox.isChecked()){
-                                updateIsprivate="true";
+                                updateIsprivate=true;
                             }else{
-                                updateIsprivate="false";
+                                updateIsprivate=false;
                             }
-
-                            final ReqUpdateTour reqUpdateTour=new ReqUpdateTour(
+                            Log.d("INFO",updateName);
+                            if(updateName.length() == 0){
+                                Toast.makeText(getApplicationContext(),"Fill out tour's name",Toast.LENGTH_LONG).show();
+                            }else {
+                                final ReqUpdateTour reqUpdateTour=new ReqUpdateTour(
                                     updateId,
                                     updateName,
                                     updateStartDate,
                                     updateEndDate,
-                                    String.valueOf(updateAdults),
-                                    String.valueOf(updateChilds),
+                                    updateAdults,
+                                    updateChilds,
                                     updateMincost,
                                     updateMaxcost,
-                                    updateStatus,
-                                    updateIsprivate
-                            );
+                                        updateIsprivate,
+                                    updateStatus
+
+                                );
+                                Log.d("info",updateName);
+                                Log.d("info",updateName);
+                                Log.d("info",updateName);
                             update(reqUpdateTour,res,userService,userStore);
+                            }
                         }
                     });
                 } else {
@@ -179,11 +187,17 @@ public class UpdateTourActivity extends AppCompatActivity implements DatePickerD
     }
     public  void update(ReqUpdateTour reqUpdateTour,final ResHistoryStopPoints res, final UserService userService, final UserStore userStore){
 
-        Call<ResUpdateTour> call=userService.sendData(userStore.getUser().getUserId(),reqUpdateTour);
+        Toast.makeText(getApplicationContext(), "" + new Gson().toJson(reqUpdateTour), Toast.LENGTH_SHORT).show();
+        Log.d("TTTTS", "update: " + new Gson().toJson(reqUpdateTour));
+        Call<ResUpdateTour> call=userService.sendData(userStore.getUser().getAccessToken(),reqUpdateTour);
         call.enqueue(new Callback<ResUpdateTour>() {
             @Override
             public void onResponse(Call<ResUpdateTour> call, Response<ResUpdateTour> response) {
+                if(response.code() ==200)
                 Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(getApplicationContext(), ""+response.code(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

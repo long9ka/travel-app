@@ -93,7 +93,7 @@ public interface UserService {
     Call<ResSetStopPoints> sendFeedback(@Header("Authorization")String string, @Body ReqReviewTour reqReviewTour);
 
     @POST("/tour/update-tour")
-    Call<ResUpdateTour> sendData(@Header("Authorization")String string, @Body ReqUpdateTour t);
+    Call<ResUpdateTour> sendData(@Header("Authorization")String string, @Body ReqUpdateTour reqUpdateTour);
     
     @GET("/tour/get/review-list")
     Call<ResReviewList> getReviewList(@Header("Authorization")String string, @Query("tourId")String tourId, @Query("pageIndex")String pageIndex, @Query("pageSize")String pageSize);

@@ -51,6 +51,7 @@ public class HistoryFragment extends Fragment {
             @Override
             public void onResponse(Call<ResHistoryTourUser> call, final Response<ResHistoryTourUser> response) {
                 if (response.isSuccessful()) {
+                    Log.d("TAG", "onResponse: ");
                     adapter = new HistoryAdapter(root.getContext(), R.layout.history_adapter, response.body().getTours());
                     listView.setAdapter(adapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
